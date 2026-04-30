@@ -7,7 +7,7 @@
     <title>CLAR’S | Joalheria de Luxo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- GSAP -->
@@ -15,6 +15,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body class="light-mode">
+    <!-- Intro Loader -->
+    <div id="intro-loader">
+        <div class="loader-content">
+            <h1 class="loader-logo">CLAR’S</h1>
+        </div>
+    </div>
+
+    <div class="bg-gradient-overlay"></div>
+    
     <!-- Navbar -->
     <nav id="navbar">
         <div class="nav-container">
@@ -26,18 +35,14 @@
                 <li><a href="#products">Produtos</a></li>
                 <li><a href="#about">Sobre nós</a></li>
                 <li><a href="#contact">Contato</a></li>
+                <li><button id="open-auth-btn" class="nav-login-btn">Login</button></li>
             </ul>
             <div class="nav-icons">
-                <div class="search-box-container">
-                    <button id="search-btn"><i class="fas fa-search"></i></button>
-                    <input type="text" id="search-input" placeholder="Buscar joias..." class="hidden">
-                </div>
-                <button id="login-icon-btn"><i class="fas fa-user"></i></button>
+                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
                 <button id="cart-btn">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cart-count">0</span>
                 </button>
-                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
                 <button id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
             </div>
         </div>
@@ -56,26 +61,49 @@
         </ul>
     </div>
 
-    <!-- Advanced Scroll-Zoom Hero Section -->
+    <!-- Reference Layout Hero Section -->
     <section id="home" class="hero-scroll-zoom">
         <div class="hero-sticky-container">
             <div class="hero-container">
-                <div class="hero-split-layout">
-                    <div class="hero-text-side">
-                        <h1 class="hero-main-title">Elegância que ilumina você</h1>
-                        <p class="hero-sub-description">Descubra o brilho que reflete sua essência em cada detalhe de nossas joias exclusivas.</p>
-                        <a href="#products" class="btn-hero">Explorar coleção &rarr;</a>
+                <div class="hero-reference-layout">
+                    <!-- Left Content -->
+                    <div class="hero-content-left">
+                        <h1 class="hero-title-main">Joias que <br><span class="highlight">emocionam!</span></h1>
+                        <p class="hero-description">Temos uma coleção exclusiva de joias em nossa loja. Nossas peças são sempre de qualidade superior.</p>
+                        <button class="btn-explore-rounded">Explorar Produtos</button>
+                        
+                        <!-- Featured Mini Cards -->
+                        <div class="hero-featured-cards">
+                            <div class="featured-card">
+                                <img src="https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Brincos">
+                                <div class="card-info">
+                                    <h4>Brincos Esmeralda</h4>
+                                    <p class="price">R$ 3.200,00</p>
+                                    <p class="discount">-10%</p>
+                                </div>
+                            </div>
+                            <div class="featured-card">
+                                <img src="https://images.unsplash.com/photo-1573408302185-9127ff5f6133?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Anel">
+                                <div class="card-info">
+                                    <h4>Anel Safira</h4>
+                                    <p class="price">R$ 4.100,00</p>
+                                    <p class="discount">-15%</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="hero-visual-side">
-                        <div class="zoom-image-wrapper">
-                            <img src="hero_jewelry.png" alt="Joalheria CLAR'S" class="zoom-image">
+                    <!-- Center/Right Visual -->
+                    <div class="hero-visual-center">
+                        <div class="visual-wrapper">
+                            <div class="splash-bg"></div>
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Colar CLAR'S" class="zoom-image">
+                            <div class="next-btn-circle"><i class="fas fa-chevron-right"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
         <div class="scroll-indicator">
             <div class="mouse">
                 <div class="wheel"></div>
@@ -106,18 +134,20 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section (Luxury Redesign) -->
     <section id="about" class="about-section">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1573408302185-9127ff5f6133?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Joalheria">
+            <div class="about-luxury-grid">
+                <div class="about-image-stack">
+                    <div class="about-glow"></div>
+                    <img src="https://images.unsplash.com/photo-1573408302185-9127ff5f6133?auto=format&fit=crop&w=1200&q=80" alt="Artesanato CLAR'S" class="about-main-image">
                 </div>
-                <div class="about-text">
-                    <h2 class="section-title">Nossa História</h2>
-                    <p>A CLAR’S nasceu da paixão pela beleza atemporal e pelo compromisso com a excelência. Cada peça em nossa coleção é mais do que um acessório; é uma obra de arte meticulosamente trabalhada.</p>
-                    <p>Nossa missão é criar joias que celebrem os momentos mais preciosos da vida, unindo design contemporâneo e técnicas artesanais tradicionais.</p>
-                    <a href="#" class="btn-primary">Saiba Mais</a>
+                <div class="about-text-content">
+                    <span class="about-subtitle">Desde 1994</span>
+                    <h2 class="about-title">Nossa História de Brilho</h2>
+                    <p class="about-paragraph">A CLAR’S nasceu da paixão pela beleza atemporal e pelo compromisso inabalável com a excelência. Cada peça em nossa coleção é meticulosamente trabalhada para ser mais do que um acessório; é um fragmento de história.</p>
+                    <p class="about-paragraph">Nossa missão é criar joias que celebrem os momentos mais preciosos da vida, unindo o design contemporâneo e ousado às técnicas artesanais mais tradicionais da alta joalheria.</p>
+                    <p class="about-signature">Com amor, CLAR’S.</p>
                 </div>
             </div>
         </div>
@@ -202,6 +232,67 @@
         </div>
     </div>
 
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="auth-modal">
+        <div class="auth-overlay"></div>
+        <div class="auth-card">
+            <!-- Left Section -->
+            <div class="auth-form-side">
+                <button class="auth-close" id="close-auth-btn"><i class="fas fa-times"></i></button>
+                <div class="auth-tabs-container">
+                    <button class="auth-tab-btn active" data-auth-tab="login">Login</button>
+                    <button class="auth-tab-btn" data-auth-tab="register">Cadastro</button>
+                </div>
+                <div class="auth-logo-circle"></div>
+                <div class="auth-title-row">
+                    <h2 id="auth-modal-title">Bem-vindo à CLAR’S</h2>
+                </div>
+                <form id="auth-form">
+                    <div id="register-only-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="reg-name">Nome Completo:</label>
+                            <input type="text" id="reg-name" class="form-input" placeholder="Seu nome">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Endereço de E-mail:</label>
+                        <input type="email" id="email" class="form-input" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••••••" required>
+                    </div>
+                    <div id="confirm-pass-field" style="display: none;">
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmar Senha:</label>
+                            <input type="password" id="confirm-password" class="form-input" placeholder="••••••••••••">
+                        </div>
+                    </div>
+                    <div id="login-options" class="auth-options">
+                        <label class="remember-me">
+                            <input type="checkbox"> Lembrar de mim
+                        </label>
+                        <a href="#" class="forgot-pass">Esqueceu a senha?</a>
+                    </div>
+                    <button type="submit" id="auth-submit-btn" class="btn-auth-submit">Entrar</button>
+                    <div class="social-divider">ou conecte-se com</div>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://accounts.google.com" target="_blank" class="social-btn"><i class="fab fa-google"></i></a>
+                    </div>
+                </form>
+            </div>
+            <!-- Right Section -->
+            <div class="auth-visual-side">
+                <div class="visual-content">
+                    <h1>CLAR’S</h1>
+                    <p id="visual-description">Onde cada detalhe conta uma história de brilho e exclusividade. Descubra a perfeição em cada peça.</p>
+                    <a href="#about" id="btn-learn-more-auth" class="btn-learn-more">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Product Modal -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
@@ -209,26 +300,6 @@
             <div class="modal-body" id="modal-body">
                 <!-- Content injected by JS -->
             </div>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content login-content">
-            <button class="close-modal">&times;</button>
-            <h2>Acesse sua conta</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn-primary btn-block">Entrar</button>
-                <p class="form-footer">Não tem uma conta? <a href="#">Cadastre-se</a></p>
-            </form>
         </div>
     </div>
 
