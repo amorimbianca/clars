@@ -337,7 +337,10 @@
     </div>
 
     <script>
-        // Bubble Floating Animation
+        // Redirect to index.html since auth is now a modal there
+        window.location.href = 'index.html';
+
+        // Bubble Floating Animation (Keep for reference or if needed later)
         document.querySelectorAll('.bubble').forEach((bubble, index) => {
             const delay = index * 2;
             const duration = 15 + index * 5;

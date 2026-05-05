@@ -1,23 +1,13 @@
 // --- Product Data ---
 const products = [
-    { id: 1, title: "Anel de Diamante Solitário", category: "aneis", price: 5400, image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 2, title: "Colar de Pérolas Clássico", category: "colares", price: 2800, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 3, title: "Brincos de Esmeralda", category: "brincos", price: 3200, image: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 4, title: "Pulseira de Ouro 18k", category: "braceletes", price: 1900, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 5, title: "Anel de Safira Azul", category: "aneis", price: 4100, image: "https://images.unsplash.com/photo-1573408302185-9127ff5f6133?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 6, title: "Conjunto Diamantes Noiva", category: "conjuntos", price: 12500, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 7, title: "Bracelete Cravejado", category: "braceletes", price: 6700, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 8, title: "Colar Coração Rubi", category: "colares", price: 3900, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 9, title: "Brincos Gota Diamante", category: "brincos", price: 4500, image: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 10, title: "Aliança Eternidade", category: "aneis", price: 3200, image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 11, title: "Colar Riviera Ouro", category: "colares", price: 8900, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 12, title: "Conjunto Pérola Real", category: "conjuntos", price: 7200, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 13, title: "Bracelete Minimalista", category: "braceletes", price: 1500, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 14, title: "Anel Quartzo Rosa", category: "aneis", price: 2100, image: "https://images.unsplash.com/photo-1573408302185-9127ff5f6133?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 15, title: "Brincos Argola Ouro", category: "brincos", price: 1800, image: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 16, title: "Colar Relicário Prata", category: "colares", price: 1200, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 17, title: "Anel Topázio Imperial", category: "aneis", price: 3800, image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { id: 18, title: "Brincos Cascata Prata", category: "brincos", price: 2400, image: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+    { id: 1, title: "Colar Solitaire Diamante", category: "colares", price: 5400, image: "product1.png", description: "Diamante lapidação brilhante em corrente de ouro 18k." },
+    { id: 2, title: "Brincos Pink Sapphire", category: "brincos", price: 3200, image: "product2.png", description: "Safiras rosas selecionadas com cravação pavê em ouro rosé." },
+    { id: 3, title: "Aliança Eternity Gold", category: "aneis", price: 2100, image: "product3.png", description: "Design minimalista e atemporal em ouro maciço polido." },
+    { id: 4, title: "Tiara Royal Diamond", category: "conjuntos", price: 12500, image: "product4.png", description: "Peça exclusiva cravejada com diamantes e pérolas naturais." },
+    { id: 5, title: "Anel de Safira Imperial", category: "aneis", price: 4100, image: "hero_ring.png", description: "Safira central profunda cercada por micro-diamantes." },
+    { id: 6, title: "Colar Riviera Esmeralda", category: "colares", price: 8900, image: "hero2.png", description: "Esmeraldas colombianas em degradê de tamanhos perfeitos." },
+    { id: 7, title: "Bracelete Cravejado", category: "braceletes", price: 6700, image: "hero3.png", description: "Luxo artesanal com centenas de pedras preciosas." },
+    { id: 8, title: "Pendente Rubi Heart", category: "colares", price: 3900, image: "hero_jewelry.png", description: "O símbolo máximo do amor em rubi e ouro branco." }
 ];
 
 // --- State Management ---
@@ -114,13 +104,51 @@ function initHeroScrollAnimation() {
     const heroContent = document.querySelector('.hero-content-left');
     const zoomImage = document.querySelector('.zoom-image');
     const splashBg = document.querySelector('.splash-bg');
+    const featuredCards = document.querySelectorAll('.featured-card');
+    
     if (!heroSection || !zoomImage) return;
+
     let mm = gsap.matchMedia();
+    
     mm.add("(min-width: 993px)", () => {
-        const tl = gsap.timeline({ scrollTrigger: { trigger: heroSection, start: "top top", end: "bottom top", scrub: 1.5 } });
-        tl.to(zoomImage, { rotation: -5, scale: 1.2, y: -50, ease: "power2.out" }, 0);
-        tl.to(splashBg, { scale: 1.5, opacity: 0.1, ease: "power2.out" }, 0);
-        tl.to(heroContent, { opacity: 0, x: -100, scale: 0.9, ease: "power2.out" }, 0);
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: heroSection,
+                start: "top top",
+                end: "bottom top",
+                scrub: 2, // Slightly more lag for extreme smoothness
+            }
+        });
+
+        tl.to(zoomImage, { 
+            rotation: 8, 
+            scale: 1.15, 
+            y: -80, 
+            ease: "none" 
+        }, 0);
+
+        tl.to(splashBg, { 
+            scale: 1.8, 
+            opacity: 0.2, 
+            y: 50,
+            ease: "none" 
+        }, 0);
+
+        tl.to(heroContent, { 
+            opacity: 0, 
+            y: -100, 
+            scale: 0.95, 
+            ease: "none" 
+        }, 0);
+
+        // Subtle parallax for the featured mini-cards
+        featuredCards.forEach((card, index) => {
+            tl.to(card, {
+                y: -150 - (index * 50),
+                opacity: 0,
+                ease: "none"
+            }, 0);
+        });
     });
 }
 
@@ -130,17 +158,37 @@ function renderProducts(productsToRender) {
     productsGrid.innerHTML = '';
     productsToRender.forEach(product => {
         const productCard = document.createElement('div');
-        productCard.className = 'product-card animate-up';
+        productCard.className = 'product-card';
         productCard.innerHTML = `
-            <div class="product-image"><img src="${product.image}" alt="${product.title}"></div>
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.title}">
+                <div class="product-overlay">
+                    <button class="btn-quick-view" onclick="addToCart(${product.id})">
+                        <i class="fas fa-shopping-bag"></i> Comprar agora
+                    </button>
+                </div>
+            </div>
             <div class="product-info">
                 <p class="product-category">${product.category}</p>
                 <h3 class="product-title">${product.title}</h3>
+                <p class="product-description">${product.description}</p>
                 <p class="product-price">R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                <button class="btn-add-cart-chic" onclick="addToCart(${product.id})">Adicionar ao Carrinho</button>
             </div>
         `;
         productsGrid.appendChild(productCard);
+    });
+
+    // Cascade animation for products
+    gsap.to('.product-card', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+            trigger: '.products-grid',
+            start: 'top 85%'
+        }
     });
 }
 
@@ -152,6 +200,15 @@ function initAuthModal() {
         authModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     });
+
+    const openAuthBtnMobile = document.getElementById('open-auth-btn-mobile');
+    if (openAuthBtnMobile) {
+        openAuthBtnMobile.addEventListener('click', () => {
+            authModal.classList.add('active');
+            mobileSidebar.classList.remove('active'); // Close sidebar after clicking login
+            document.body.style.overflow = 'hidden';
+        });
+    }
 
     const closeFn = () => {
         authModal.classList.remove('active');
@@ -176,36 +233,69 @@ function initAuthModal() {
         });
     }
 
+    const btnForgotPass = document.getElementById('btn-forgot-pass');
+    const btnBackToLogin = document.getElementById('btn-back-to-login');
+    const passwordFields = document.getElementById('password-fields');
+    const socialAuthSection = document.getElementById('social-auth-section');
+    const backToLoginRow = document.getElementById('back-to-login-row');
+    const authTabsContainer = document.querySelector('.auth-tabs-container');
+
     const switchAuth = (mode) => {
         isLoginMode = (mode === 'login');
+        const isRecoverMode = (mode === 'recover');
+        
         authTabBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-auth-tab') === mode));
+        authTabsContainer.style.display = isRecoverMode ? 'none' : 'flex';
 
-        if (isLoginMode) {
+        if (mode === 'login') {
             authModalTitle.innerText = 'Bem-vindo à CLAR’S';
             authSubmitBtn.innerText = 'Entrar';
             registerOnlyFields.style.display = 'none';
             confirmPassField.style.display = 'none';
+            passwordFields.style.display = 'block';
             loginOptions.style.display = 'flex';
+            socialAuthSection.style.display = 'block';
+            backToLoginRow.style.display = 'none';
             visualDescription.innerText = 'Onde cada detalhe conta uma história de brilho e exclusividade. Descubra a perfeição em cada peça.';
-        } else {
+        } else if (mode === 'register') {
             authModalTitle.innerText = 'Crie sua conta na CLAR’S';
             authSubmitBtn.innerText = 'Finalizar Cadastro';
             registerOnlyFields.style.display = 'block';
             confirmPassField.style.display = 'block';
+            passwordFields.style.display = 'block';
             loginOptions.style.display = 'none';
+            socialAuthSection.style.display = 'block';
+            backToLoginRow.style.display = 'none';
             visualDescription.innerText = 'Junte-se à nossa comunidade exclusiva e receba ofertas personalizadas e acesso antecipado às novas coleções.';
+        } else if (mode === 'recover') {
+            authModalTitle.innerText = 'Recupere sua Senha';
+            authSubmitBtn.innerText = 'Enviar Link de Recuperação';
+            registerOnlyFields.style.display = 'none';
+            confirmPassField.style.display = 'none';
+            passwordFields.style.display = 'none';
+            loginOptions.style.display = 'none';
+            socialAuthSection.style.display = 'none';
+            backToLoginRow.style.display = 'block';
+            visualDescription.innerText = 'Não se preocupe. Enviaremos as instruções para você redefinir sua senha com segurança.';
         }
-        gsap.from([registerOnlyFields, confirmPassField], { opacity: 0, y: -10, duration: 0.3 });
+        gsap.from('.auth-form-side > *', { opacity: 0, y: 10, duration: 0.4, stagger: 0.05 });
     };
 
     authTabBtns.forEach(btn => {
         btn.addEventListener('click', () => switchAuth(btn.getAttribute('data-auth-tab')));
     });
 
+    if (btnForgotPass) btnForgotPass.addEventListener('click', (e) => { e.preventDefault(); switchAuth('recover'); });
+    if (btnBackToLogin) btnBackToLogin.addEventListener('click', (e) => { e.preventDefault(); switchAuth('login'); });
+
     authForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const action = isLoginMode ? 'Login realizado' : 'Cadastro realizado';
-        alert(`${action} com sucesso! Bem-vindo à CLAR’S.`);
+        let message = 'Ação realizada com sucesso!';
+        if (isLoginMode) message = 'Login realizado com sucesso! Bem-vindo.';
+        else if (authModalTitle.innerText.includes('Recupere')) message = 'Link de recuperação enviado para o seu e-mail.';
+        else message = 'Cadastro realizado com sucesso! Bem-vindo à CLAR’S.';
+        
+        alert(message);
         closeFn();
     });
 }
@@ -213,18 +303,40 @@ function initAuthModal() {
 // --- Cart & Other ---
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    cart.push(product);
+    const existingItem = cart.find(item => item.id === productId);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+
     updateCartUI();
     openCart();
+    
+    // Subtle button feedback
+    const btn = event.currentTarget;
+    if (btn) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Adicionado';
+        setTimeout(() => btn.innerHTML = originalText, 2000);
+    }
 }
 
 function updateCartUI() {
     const cartCountEl = document.getElementById('cart-count');
-    if (cartCountEl) cartCountEl.innerText = cart.length;
+    if (cartCountEl) cartCountEl.innerText = cart.reduce((acc, item) => acc + item.quantity, 0);
+    
     cartItemsContainer.innerHTML = '';
     let total = 0;
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p style="text-align:center; padding:50px; opacity:0.5;">Seu carrinho está vazio.</p>';
+    }
+
     cart.forEach((item, index) => {
-        total += item.price;
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
@@ -232,15 +344,32 @@ function updateCartUI() {
             <div class="cart-item-info">
                 <p class="cart-item-title">${item.title}</p>
                 <p class="cart-item-price">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                <div class="quantity-control">
+                    <button onclick="changeQuantity(${index}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="changeQuantity(${index}, 1)">+</button>
+                </div>
             </div>
-            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4d4d; cursor:pointer;"><i class="fas fa-trash"></i></button>
+            <button class="remove-item" onclick="removeFromCart(${index})"><i class="fas fa-times"></i></button>
         `;
         cartItemsContainer.appendChild(cartItem);
     });
     cartTotalValue.innerText = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
 }
 
-function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+function changeQuantity(index, delta) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+    updateCartUI();
+}
+
+function removeFromCart(index) { 
+    cart.splice(index, 1); 
+    updateCartUI(); 
+}
+
 function openCart() { cartSidebar.classList.add('active'); }
 cartBtn.addEventListener('click', openCart);
 closeCart.addEventListener('click', () => cartSidebar.classList.remove('active'));
@@ -252,5 +381,139 @@ themeToggle.addEventListener('click', () => {
     else icon.classList.replace('fa-sun', 'fa-moon');
 });
 
-mobileMenuBtn.addEventListener('click', () => mobileSidebar.classList.add('active'));
-closeSidebar.addEventListener('click', () => mobileSidebar.classList.remove('active'));
+mobileMenuBtn.addEventListener('click', () => {
+    mobileSidebar.classList.add('active');
+    mobileMenuBtn.classList.add('active');
+});
+
+closeSidebar.addEventListener('click', () => {
+    mobileSidebar.classList.remove('active');
+    mobileMenuBtn.classList.remove('active');
+});
+
+// Close sidebar when clicking on a link
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileSidebar.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+        toggleScroll(false);
+    });
+});
+
+// --- Contact Form ---
+const contactForm = document.getElementById('contact-form');
+const contactSuccess = document.getElementById('contact-success');
+
+if (contactForm && contactSuccess) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        gsap.to(contactForm, { 
+            opacity: 0, 
+            y: -20, 
+            duration: 0.5, 
+            onComplete: () => {
+                contactForm.style.display = 'none';
+                contactSuccess.style.display = 'block';
+                gsap.from(contactSuccess, { opacity: 0, scale: 0.9, duration: 0.5 });
+            }
+        });
+    });
+}
+// --- About Section Animations ---
+function initAboutAnimations() {
+    gsap.from('.about-visual-panel', {
+        scrollTrigger: {
+            trigger: '.about-section',
+            start: 'top 80%',
+        },
+        opacity: 0,
+        x: -50,
+        duration: 1.2,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.about-content-panel > *', {
+        scrollTrigger: {
+            trigger: '.about-section',
+            start: 'top 80%',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out'
+    });
+}
+
+// --- Interface Polish ---
+const backToTopBtn = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+});
+
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Scroll Lock Utility
+function toggleScroll(lock) {
+    document.body.classList.toggle('no-scroll', lock);
+}
+
+// Safe Event Assignment
+const safeListen = (id, event, fn) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(event, fn);
+};
+
+safeListen('mobile-menu-btn', 'click', () => toggleScroll(true));
+safeListen('close-sidebar', 'click', () => toggleScroll(false));
+safeListen('cart-btn', 'click', () => toggleScroll(true));
+safeListen('close-cart', 'click', () => toggleScroll(false));
+safeListen('login-btn', 'click', () => toggleScroll(true));
+safeListen('close-auth-btn', 'click', () => toggleScroll(false));
+
+// Global Safety: Force hide loader after 5s
+setTimeout(() => {
+    const loader = document.getElementById('intro-loader');
+    if (loader && loader.style.display !== 'none') {
+        loader.style.display = 'none';
+    }
+}, 5000); 
+
+// Global Section Reveals
+function initGlobalReveals() {
+    const revealElements = document.querySelectorAll('.section-title, .contact-grid, .footer-grid, .featured-card');
+    
+    revealElements.forEach(el => {
+        gsap.from(el, {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+    });
+
+    // Subtle parallax on about and hero images
+    gsap.to('.about-store-image', {
+        y: -30,
+        scrollTrigger: {
+            trigger: '.about-section',
+            scrub: true
+        }
+    });
+}
+
+initGlobalReveals();
+initAboutAnimations();

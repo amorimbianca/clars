@@ -43,7 +43,10 @@
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cart-count">0</span>
                 </button>
-                <button id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+                <button id="mobile-menu-btn" class="hamburger-btn">
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -58,6 +61,7 @@
             <li><a href="#products" class="sidebar-link">Produtos</a></li>
             <li><a href="#about" class="sidebar-link">Sobre nós</a></li>
             <li><a href="#contact" class="sidebar-link">Contato</a></li>
+            <li><button id="open-auth-btn-mobile" class="nav-login-btn" style="margin-top: 20px; width: 100%;">Login</button></li>
         </ul>
     </div>
 
@@ -75,7 +79,7 @@
                         <!-- Featured Mini Cards -->
                         <div class="hero-featured-cards">
                             <div class="featured-card">
-                                <img src="https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Brincos">
+                                <img src="product2.png" alt="Brincos Esmeralda">
                                 <div class="card-info">
                                     <h4>Brincos Esmeralda</h4>
                                     <p class="price">R$ 3.200,00</p>
@@ -83,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="featured-card">
-                                <img src="https://images.unsplash.com/photo-1573408302185-9127ff5f6133?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Anel">
+                                <img src="product1.png" alt="Anel Safira">
                                 <div class="card-info">
                                     <h4>Anel Safira</h4>
                                     <p class="price">R$ 4.100,00</p>
@@ -97,7 +101,7 @@
                     <div class="hero-visual-center">
                         <div class="visual-wrapper">
                             <div class="splash-bg"></div>
-                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Colar CLAR'S" class="zoom-image">
+                            <img src="hero_jewelry.png" alt="Coleção Exclusiva CLAR'S" class="zoom-image">
                             <div class="next-btn-circle"><i class="fas fa-chevron-right"></i></div>
                         </div>
                     </div>
@@ -134,19 +138,42 @@
         </div>
     </section>
 
-    <!-- About Section (Luxury Redesign) -->
+    <!-- About Section (Editorial Redesign) -->
     <section id="about" class="about-section">
         <div class="container">
-            <div class="about-luxury-grid">
-                <div class="about-image-stack">
-                    <div class="about-glow"></div>
-                    <img src="https://images.unsplash.com/photo-1573408302185-9127ff5f6133?auto=format&fit=crop&w=1200&q=80" alt="Artesanato CLAR'S" class="about-main-image">
+            <div class="about-editorial-grid">
+                <!-- Visual Side -->
+                <div class="about-visual-panel">
+                    <div class="about-image-wrapper">
+                        <img src="hero_storefront.png" alt="Nossa Maison CLAR'S" class="about-store-image">
+                        <div class="about-image-overlay"></div>
+                    </div>
+                    <div class="about-experience-badge">
+                        <span>30 Anos</span>
+                        <p>de pura exclusividade</p>
+                    </div>
                 </div>
-                <div class="about-text-content">
-                    <span class="about-subtitle">Desde 1994</span>
-                    <h2 class="about-title">Nossa História de Brilho</h2>
-                    <p class="about-paragraph">A CLAR’S nasceu da paixão pela beleza atemporal e pelo compromisso inabalável com a excelência. Cada peça em nossa coleção é meticulosamente trabalhada para ser mais do que um acessório; é um fragmento de história.</p>
-                    <p class="about-paragraph">Nossa missão é criar joias que celebrem os momentos mais preciosos da vida, unindo o design contemporâneo e ousado às técnicas artesanais mais tradicionais da alta joalheria.</p>
+                
+                <!-- Content Side -->
+                <div class="about-content-panel">
+                    <span class="about-tagline">Nossa Essência</span>
+                    <h2 class="about-headline">O Brilho que <br><span class="highlight">Define Gerações</span></h2>
+                    <p class="about-text-premium">
+                        Fundada no coração do luxo, a CLAR’S nasceu do desejo de transformar momentos efêmeros em memórias eternas. Cada joia que leva nossa assinatura é fruto de um processo artesanal meticuloso, onde a perfeição técnica encontra a alma artística.
+                    </p>
+                    <p class="about-text-secondary">
+                        Nossa Maison não é apenas uma loja, é um santuário de beleza. Aqui, diamantes, esmeraldas e ouro se unem em designs autorais que celebram a autenticidade e a força feminina.
+                    </p>
+                    <div class="about-stats-row">
+                        <div class="stat-box">
+                            <span class="stat-num">50k+</span>
+                            <p>Sonhos Realizados</p>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">100%</span>
+                            <p>Autenticidade</p>
+                        </div>
+                    </div>
                     <p class="about-signature">Com amor, CLAR’S.</p>
                 </div>
             </div>
@@ -156,71 +183,144 @@
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
+            <h2 class="section-title">Fale Conosco</h2>
             <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
+                <!-- Contact Info -->
+                <div class="contact-info-panel">
+                    <div class="contact-item-box">
                         <i class="fas fa-map-marker-alt"></i>
-                        <p>Av. das Américas, 500 - Rio de Janeiro, RJ</p>
+                        <div>
+                            <h4>Nossa Maison</h4>
+                            <p>Av. das Esmeraldas, 1000 - Jardins, São Paulo</p>
+                        </div>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item-box">
                         <i class="fas fa-phone-alt"></i>
-                        <p>(21) 99999-8888</p>
+                        <div>
+                            <h4>Concierge</h4>
+                            <p>+55 (11) 98888-7777</p>
+                        </div>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item-box">
                         <i class="fas fa-envelope"></i>
-                        <p>contato@clarsjoias.com.br</p>
+                        <div>
+                            <h4>Atendimento</h4>
+                            <p>contato@clars.com.br</p>
+                        </div>
                     </div>
-                </div>
-                <form id="contact-form" class="contact-form">
-                    <input type="text" placeholder="Seu Nome" required>
-                    <input type="email" placeholder="Seu E-mail" required>
-                    <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
-                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo">CLAR’S</div>
-                    <p>Joalheria moderna e sofisticada para quem valoriza cada momento.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Links Úteis</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#products">Produtos</a></li>
-                        <li><a href="#about">Sobre nós</a></li>
-                        <li><a href="#contact">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Siga-nos</h3>
-                    <div class="social-links">
+                    <div class="contact-social-row">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-pinterest"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
+                    <!-- Stylized Map Placeholder -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975!2d-46.6611!3d-23.5614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDMzJzQxLjAiUyA0NsKwMzknMzkuOSJX!5e0!3m2!1spt-BR!2sbr!4v1234567890" width="100%" height="250" style="border:0; filter: grayscale(1) invert(1) contrast(0.8) sepia(0.2) hue-rotate(300deg); border-radius: 20px;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-panel">
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" id="contact-name" class="form-input-premium" placeholder="Como deseja ser chamada?" required>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input type="email" id="contact-email" class="form-input-premium" placeholder="seu@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Assunto</label>
+                            <select id="contact-subject" class="form-input-premium">
+                                <option>Dúvidas sobre produtos</option>
+                                <option>Agendamento de visita</option>
+                                <option>Joias personalizadas</option>
+                                <option>Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sua Mensagem</label>
+                            <textarea id="contact-message" class="form-input-premium" rows="5" placeholder="Conte-nos como podemos ajudar..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-send-premium">Enviar Mensagem</button>
+                    </form>
+                    <div id="contact-success" class="success-message-box" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Mensagem enviada com sucesso</h3>
+                        <p>Nosso concierge entrará em contato em breve para um atendimento personalizado.</p>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CLAR’S Joalheria. Todos os direitos reservados.</p>
+        </div>
+    </section>
+
+    <!-- Footer Premium Redesign -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Identity -->
+                <div class="footer-col brand-col">
+                    <h2 class="footer-logo">CLAR’S</h2>
+                    <p class="footer-brand-desc">
+                        A essência da alta joalheria brasileira. Onde cada quilate conta uma história de beleza e tradição.
+                    </p>
+                    <div class="footer-payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-pix"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="footer-col">
+                    <h3 class="footer-title">Explorar</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#products">Coleções</a></li>
+                        <li><a href="#about">Maison</a></li>
+                        <li><a href="#contact">Atendimento</a></li>
+                    </ul>
+                </div>
+
+                <!-- Exclusive Club / Newsletter -->
+                <div class="footer-col newsletter-col">
+                    <h3 class="footer-title">Clube Exclusivo</h3>
+                    <p>Receba convites para eventos e lançamentos em primeira mão.</p>
+                    <div class="footer-newsletter">
+                        <input type="email" placeholder="seu@email.com" class="newsletter-input">
+                        <button class="newsletter-btn"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Social & Contact -->
+                <div class="footer-col">
+                    <h3 class="footer-title">Siga a CLAR’S</h3>
+                    <div class="social-links-footer">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p class="footer-contact-info">contato@clars.com.br</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom-bar">
+                <p>&copy; 2024 CLAR’S Joalheria. Todos os direitos reservados. | Desenvolvido com sofisticação.</p>
             </div>
         </div>
     </footer>
 
     <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h3>Seu Carrinho</h3>
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Seu Carrinho</h2>
             <button id="close-cart"><i class="fas fa-times"></i></button>
         </div>
-        <div id="cart-items-container">
+        <div id="cart-items-container" class="cart-items">
             <!-- Cart items injected by JS -->
         </div>
         <div class="cart-footer">
@@ -228,7 +328,7 @@
                 <span>Total:</span>
                 <span id="cart-total-value">R$ 0,00</span>
             </div>
-            <button class="btn-primary btn-block">Finalizar Compra</button>
+            <button class="btn-checkout">Finalizar Compra</button>
         </div>
     </div>
 
@@ -254,31 +354,38 @@
                             <input type="text" id="reg-name" class="form-input" placeholder="Seu nome">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div id="email-field" class="form-group">
                         <label for="email">Endereço de E-mail:</label>
                         <input type="email" id="email" class="form-input" placeholder="seu@email.com" required>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Senha:</label>
-                        <input type="password" id="password" class="form-input" placeholder="••••••••••••" required>
-                    </div>
-                    <div id="confirm-pass-field" style="display: none;">
+                    <div id="password-fields">
                         <div class="form-group">
-                            <label for="confirm-password">Confirmar Senha:</label>
-                            <input type="password" id="confirm-password" class="form-input" placeholder="••••••••••••">
+                            <label for="password">Senha:</label>
+                            <input type="password" id="password" class="form-input" placeholder="••••••••••••">
+                        </div>
+                        <div id="confirm-pass-field" style="display: none;">
+                            <div class="form-group">
+                                <label for="confirm-password">Confirmar Senha:</label>
+                                <input type="password" id="confirm-password" class="form-input" placeholder="••••••••••••">
+                            </div>
                         </div>
                     </div>
                     <div id="login-options" class="auth-options">
                         <label class="remember-me">
                             <input type="checkbox"> Lembrar de mim
                         </label>
-                        <a href="#" class="forgot-pass">Esqueceu a senha?</a>
+                        <a href="#" id="btn-forgot-pass" class="forgot-pass">Esqueceu a senha?</a>
                     </div>
                     <button type="submit" id="auth-submit-btn" class="btn-auth-submit">Entrar</button>
-                    <div class="social-divider">ou conecte-se com</div>
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://accounts.google.com" target="_blank" class="social-btn"><i class="fab fa-google"></i></a>
+                    <div id="social-auth-section">
+                        <div class="social-divider">ou conecte-se com</div>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://accounts.google.com" target="_blank" class="social-btn"><i class="fab fa-google"></i></a>
+                        </div>
+                    </div>
+                    <div id="back-to-login-row" style="display: none; text-align: center; margin-top: 20px;">
+                        <a href="#" id="btn-back-to-login" class="forgot-pass">Voltar para o Login</a>
                     </div>
                 </form>
             </div>
@@ -302,6 +409,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>
