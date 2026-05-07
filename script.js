@@ -13,6 +13,7 @@ const products = [
 // --- State Management ---
 let cart = [];
 let isLoginMode = true;
+let currentUser = null;
 
 // --- DOM Elements ---
 const productsGrid = document.getElementById('products-grid');
@@ -22,7 +23,6 @@ const closeCart = document.getElementById('close-cart');
 const cartSidebar = document.getElementById('cart-sidebar');
 const cartItemsContainer = document.getElementById('cart-items-container');
 const cartTotalValue = document.getElementById('cart-total-value');
-const cartCount = document.getElementById('cart-count');
 const themeToggle = document.getElementById('theme-toggle');
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileSidebar = document.getElementById('mobile-sidebar');
@@ -39,9 +39,7 @@ const authSubmitBtn = document.getElementById('auth-submit-btn');
 const registerOnlyFields = document.getElementById('register-only-fields');
 const confirmPassField = document.getElementById('confirm-pass-field');
 const loginOptions = document.getElementById('login-options');
-const visualDescription = document.getElementById('visual-description');
 const authTabBtns = document.querySelectorAll('.auth-tab-btn');
-const btnLearnMoreAuth = document.getElementById('btn-learn-more-auth');
 
 const productModal = document.getElementById('product-modal');
 const closeModalBtns = document.querySelectorAll('.close-modal');
@@ -51,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     initIntroLoader();
     renderProducts(products);
-    initHeroScrollAnimation();
-    initInteractiveBackground();
+    initHeroCarousel();
     
     window.addEventListener('scroll', () => {
         const navbar = document.getElementById('navbar');
@@ -63,7 +60,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     initAuthModal();
+    initProductTabs();
+    initSearch();
 });
+
+// --- Product Tabs ---
+function initProductTabs() {
+    if (!tabBtns || tabBtns.length === 0) return;
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active state
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const category = btn.getAttribute('data-category');
+            
+            // Filter products
+            const filteredProducts = category === 'todos' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            // Animate grid out and in
+            gsap.to(productsGrid, {
+                opacity: 0,
+                y: 20,
+                duration: 0.3,
+                onComplete: () => {
+                    renderProducts(filteredProducts);
+                    gsap.to(productsGrid, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+    });
+}
 
 // --- Intro Loader ---
 function initIntroLoader() {
@@ -83,82 +118,84 @@ function initIntroLoader() {
     .to(logo, { scale: 1.1, opacity: 0, duration: 0.5, ease: "power2.in" }, "-=0.8");
 }
 
-// --- Interactive Background ---
-function initInteractiveBackground() {
-    const overlay = document.querySelector('.bg-gradient-overlay');
-    if (!overlay) return;
-    window.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        const isDark = document.body.classList.contains('dark-mode');
-        const c1 = '#ffebef'; const c2 = '#ffccd5'; const c3 = '#ffb3c1'; const c4 = '#ff8fa3'; 
-        const d1 = '#1A080C'; const d2 = '#0F0407'; const d3 = '#3C1521';
-        if (!isDark) gsap.to(overlay, { background: `radial-gradient(circle at ${x}% ${y}%, ${c1} 0%, ${c3} 30%, ${c2} 60%, ${c4} 100%)`, duration: 1.5, ease: "sine.out" });
-        else gsap.to(overlay, { background: `radial-gradient(circle at ${x}% ${y}%, ${d1} 0%, ${d3} 40%, ${d2} 100%)`, duration: 1.5, ease: "sine.out" });
-    });
-}
 
-// --- Hero Scroll Animation ---
-function initHeroScrollAnimation() {
-    const heroSection = document.querySelector('.hero-scroll-zoom');
-    const heroContent = document.querySelector('.hero-content-left');
-    const zoomImage = document.querySelector('.zoom-image');
-    const splashBg = document.querySelector('.splash-bg');
-    const featuredCards = document.querySelectorAll('.featured-card');
-    
-    if (!heroSection || !zoomImage) return;
+// --- Hero Carousel ---
+function initHeroCarousel() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    let currentSlide = 0;
+    let slideInterval;
 
-    let mm = gsap.matchMedia();
-    
-    mm.add("(min-width: 993px)", () => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroSection,
-                start: "top top",
-                end: "bottom top",
-                scrub: 2, // Slightly more lag for extreme smoothness
-            }
-        });
+    if (!slides.length) return;
 
-        tl.to(zoomImage, { 
-            rotation: 8, 
-            scale: 1.15, 
-            y: -80, 
-            ease: "none" 
-        }, 0);
+    function goToSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
 
-        tl.to(splashBg, { 
-            scale: 1.8, 
-            opacity: 0.2, 
-            y: 50,
-            ease: "none" 
-        }, 0);
+    function nextSlide() {
+        goToSlide(currentSlide + 1);
+    }
 
-        tl.to(heroContent, { 
-            opacity: 0, 
-            y: -100, 
-            scale: 0.95, 
-            ease: "none" 
-        }, 0);
+    function prevSlide() {
+        goToSlide(currentSlide - 1);
+    }
 
-        // Subtle parallax for the featured mini-cards
-        featuredCards.forEach((card, index) => {
-            tl.to(card, {
-                y: -150 - (index * 50),
-                opacity: 0,
-                ease: "none"
-            }, 0);
+    function startAutoPlay() {
+        slideInterval = setInterval(nextSlide, 6000);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(slideInterval);
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            stopAutoPlay();
+            goToSlide(index);
+            startAutoPlay();
         });
     });
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            prevSlide();
+            startAutoPlay();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            nextSlide();
+            startAutoPlay();
+        });
+    }
+
+    startAutoPlay();
 }
 
 // --- Product Rendering ---
 function renderProducts(productsToRender) {
     if (!productsGrid) return;
     productsGrid.innerHTML = '';
+    
+    if (productsToRender.length === 0) {
+        productsGrid.innerHTML = '<p class="no-results">Nenhum produto encontrado para sua busca.</p>';
+        return;
+    }
+
     productsToRender.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
+        productCard.style.opacity = '0'; // Start hidden for animation
+        productCard.style.transform = 'translateY(20px)';
         productCard.innerHTML = `
             <div class="product-image">
                 <img src="${product.image}" alt="${product.title}">
@@ -182,122 +219,149 @@ function renderProducts(productsToRender) {
     gsap.to('.product-card', {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: '.products-grid',
-            start: 'top 85%'
-        }
+        duration: 0.6,
+        stagger: 0.05,
+        ease: 'power2.out'
     });
 }
 
 // --- Auth Modal Logic ---
 function initAuthModal() {
-    if (!openAuthBtn || !authModal) return;
+    const authModal = document.getElementById('auth-modal');
+    const closeAuthBtn = document.getElementById('close-auth-btn');
+    const authContainer = document.getElementById('auth-card-container');
+    const signUpBtn = document.getElementById('signUp');
+    const signInBtn = document.getElementById('signIn');
+    const openAuthBtn = document.getElementById('open-auth-btn');
+    const openAuthBtnMobile = document.getElementById('open-auth-btn-mobile');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    
+    const signInForm = document.getElementById('signin-form');
+    const signUpForm = document.getElementById('signup-form');
 
-    openAuthBtn.addEventListener('click', () => {
+    const openFn = () => {
         authModal.classList.add('active');
         document.body.style.overflow = 'hidden';
-    });
-
-    const openAuthBtnMobile = document.getElementById('open-auth-btn-mobile');
-    if (openAuthBtnMobile) {
-        openAuthBtnMobile.addEventListener('click', () => {
-            authModal.classList.add('active');
-            mobileSidebar.classList.remove('active'); // Close sidebar after clicking login
-            document.body.style.overflow = 'hidden';
-        });
-    }
+    };
 
     const closeFn = () => {
-        authModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        if (authModal) {
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Reset to sign-in panel on close after a small delay to hide the swap
+            setTimeout(() => {
+                if (authContainer) authContainer.classList.remove('right-panel-active');
+            }, 400);
+        }
     };
 
-    closeAuthBtn.addEventListener('click', closeFn);
-    authOverlay.addEventListener('click', closeFn);
-
-    // Saiba Mais logic: close modal and scroll
-    if (btnLearnMoreAuth) {
-        btnLearnMoreAuth.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = btnLearnMoreAuth.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            closeFn();
-            if (targetSection) {
-                setTimeout(() => {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                }, 400); // Wait for modal close animation
-            }
+    if (openAuthBtn) openAuthBtn.addEventListener('click', openFn);
+    if (openAuthBtnMobile) {
+        openAuthBtnMobile.addEventListener('click', () => {
+            openFn();
+            if (mobileSidebar) mobileSidebar.classList.remove('active');
         });
     }
 
-    const btnForgotPass = document.getElementById('btn-forgot-pass');
-    const btnBackToLogin = document.getElementById('btn-back-to-login');
-    const passwordFields = document.getElementById('password-fields');
-    const socialAuthSection = document.getElementById('social-auth-section');
-    const backToLoginRow = document.getElementById('back-to-login-row');
-    const authTabsContainer = document.querySelector('.auth-tabs-container');
+    if (closeAuthBtn) closeAuthBtn.addEventListener('click', closeFn);
+    
+    // Panel Toggling
+    if (signUpBtn && authContainer) signUpBtn.addEventListener('click', () => {
+        authContainer.classList.add('right-panel-active');
+    });
 
-    const switchAuth = (mode) => {
-        isLoginMode = (mode === 'login');
-        const isRecoverMode = (mode === 'recover');
+    if (signInBtn && authContainer) signInBtn.addEventListener('click', () => {
+        authContainer.classList.remove('right-panel-active');
+    });
+
+    // Form Submission Logic
+    const handleAuth = (e, emailId, nameId) => {
+        e.preventDefault();
+        const emailEl = document.getElementById(emailId);
+        const nameEl = nameId ? document.getElementById(nameId) : null;
         
-        authTabBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-auth-tab') === mode));
-        authTabsContainer.style.display = isRecoverMode ? 'none' : 'flex';
-
-        if (mode === 'login') {
-            authModalTitle.innerText = 'Bem-vindo à CLAR’S';
-            authSubmitBtn.innerText = 'Entrar';
-            registerOnlyFields.style.display = 'none';
-            confirmPassField.style.display = 'none';
-            passwordFields.style.display = 'block';
-            loginOptions.style.display = 'flex';
-            socialAuthSection.style.display = 'block';
-            backToLoginRow.style.display = 'none';
-            visualDescription.innerText = 'Onde cada detalhe conta uma história de brilho e exclusividade. Descubra a perfeição em cada peça.';
-        } else if (mode === 'register') {
-            authModalTitle.innerText = 'Crie sua conta na CLAR’S';
-            authSubmitBtn.innerText = 'Finalizar Cadastro';
-            registerOnlyFields.style.display = 'block';
-            confirmPassField.style.display = 'block';
-            passwordFields.style.display = 'block';
-            loginOptions.style.display = 'none';
-            socialAuthSection.style.display = 'block';
-            backToLoginRow.style.display = 'none';
-            visualDescription.innerText = 'Junte-se à nossa comunidade exclusiva e receba ofertas personalizadas e acesso antecipado às novas coleções.';
-        } else if (mode === 'recover') {
-            authModalTitle.innerText = 'Recupere sua Senha';
-            authSubmitBtn.innerText = 'Enviar Link de Recuperação';
-            registerOnlyFields.style.display = 'none';
-            confirmPassField.style.display = 'none';
-            passwordFields.style.display = 'none';
-            loginOptions.style.display = 'none';
-            socialAuthSection.style.display = 'none';
-            backToLoginRow.style.display = 'block';
-            visualDescription.innerText = 'Não se preocupe. Enviaremos as instruções para você redefinir sua senha com segurança.';
-        }
-        gsap.from('.auth-form-side > *', { opacity: 0, y: 10, duration: 0.4, stagger: 0.05 });
+        const emailVal = emailEl ? emailEl.value : '';
+        const nameVal = nameEl ? nameEl.value : '';
+        
+        let userName = nameVal || emailVal.split('@')[0];
+        userName = userName.trim().split(/[ ._@]/)[0];
+        userName = userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
+        
+        currentUser = { name: userName, email: emailVal };
+        updateNavbarUser();
+        
+        alert(`Bem-vindo à CLAR’S, ${userName}!`);
+        closeFn();
     };
 
-    authTabBtns.forEach(btn => {
-        btn.addEventListener('click', () => switchAuth(btn.getAttribute('data-auth-tab')));
-    });
+    if (signInForm) signInForm.addEventListener('submit', (e) => handleAuth(e, 'login-email'));
+    if (signUpForm) signUpForm.addEventListener('submit', (e) => handleAuth(e, 'reg-email', 'reg-name'));
+}
 
-    if (btnForgotPass) btnForgotPass.addEventListener('click', (e) => { e.preventDefault(); switchAuth('recover'); });
-    if (btnBackToLogin) btnBackToLogin.addEventListener('click', (e) => { e.preventDefault(); switchAuth('login'); });
-
-    authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let message = 'Ação realizada com sucesso!';
-        if (isLoginMode) message = 'Login realizado com sucesso! Bem-vindo.';
-        else if (authModalTitle.innerText.includes('Recupere')) message = 'Link de recuperação enviado para o seu e-mail.';
-        else message = 'Cadastro realizado com sucesso! Bem-vindo à CLAR’S.';
+function updateNavbarUser() {
+    const loginBtn = document.getElementById('open-auth-btn');
+    const loginBtnMobile = document.getElementById('open-auth-btn-mobile');
+    
+    const userHTML = currentUser ? `
+        <div class="user-logged-in">
+            <span>Olá, ${currentUser.name}</span>
+            <i class="fas fa-sign-out-alt logout-trigger" title="Sair" onclick="logoutUser()"></i>
+        </div>
+    ` : '';
+    
+    if (currentUser) {
+        if (loginBtn) {
+            const wrapper = document.createElement('div');
+            wrapper.id = 'user-display-desktop';
+            wrapper.innerHTML = userHTML;
+            loginBtn.parentNode.replaceChild(wrapper, loginBtn);
+        }
+        if (loginBtnMobile) {
+            const wrapperMobile = document.createElement('div');
+            wrapperMobile.id = 'user-display-mobile';
+            wrapperMobile.innerHTML = userHTML;
+            loginBtnMobile.parentNode.replaceChild(wrapperMobile, loginBtnMobile);
+        }
+    } else {
+        // Handle logout: restore buttons
+        const desktopDisplay = document.getElementById('user-display-desktop');
+        const mobileDisplay = document.getElementById('user-display-mobile');
         
-        alert(message);
-        closeFn();
-    });
+        if (desktopDisplay) {
+            const newBtn = document.createElement('button');
+            newBtn.id = 'open-auth-btn';
+            newBtn.className = 'nav-login-btn';
+            newBtn.innerText = 'Login';
+            desktopDisplay.parentNode.replaceChild(newBtn, desktopDisplay);
+            // Re-attach listener
+            newBtn.addEventListener('click', () => {
+                document.getElementById('auth-modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+        
+        if (mobileDisplay) {
+            const newBtnMobile = document.createElement('button');
+            newBtnMobile.id = 'open-auth-btn-mobile';
+            newBtnMobile.className = 'nav-login-btn';
+            newBtnMobile.style.marginTop = '20px';
+            newBtnMobile.style.width = '100%';
+            newBtnMobile.innerText = 'Login';
+            mobileDisplay.parentNode.replaceChild(newBtnMobile, mobileDisplay);
+            // Re-attach listener
+            newBtnMobile.addEventListener('click', () => {
+                document.getElementById('auth-modal').classList.add('active');
+                document.getElementById('mobile-sidebar').classList.remove('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+    }
+}
+
+function logoutUser() {
+    currentUser = null;
+    updateNavbarUser();
+    alert('Você saiu da sua conta.');
 }
 
 // --- Cart & Other ---
@@ -324,9 +388,6 @@ function addToCart(productId) {
 }
 
 function updateCartUI() {
-    const cartCountEl = document.getElementById('cart-count');
-    if (cartCountEl) cartCountEl.innerText = cart.reduce((acc, item) => acc + item.quantity, 0);
-    
     cartItemsContainer.innerHTML = '';
     let total = 0;
 
@@ -355,7 +416,438 @@ function updateCartUI() {
         cartItemsContainer.appendChild(cartItem);
     });
     cartTotalValue.innerText = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    
+    // Update checkout button state
+    const checkoutBtn = document.querySelector('.btn-checkout');
+    if (checkoutBtn) {
+        checkoutBtn.disabled = cart.length === 0;
+        checkoutBtn.style.opacity = cart.length === 0 ? '0.5' : '1';
+    }
 }
+
+// --- Checkout Functionality ---
+const checkoutModal = document.getElementById('checkout-modal');
+const closeCheckoutBtn = document.getElementById('close-checkout');
+
+function openCheckout() {
+    if (cart.length === 0) return;
+    
+    // Close cart sidebar first
+    cartSidebar.classList.remove('active');
+    
+    // Reset to step 1
+    nextStep(1);
+    
+    // Update summary items
+    updateCheckoutSummary();
+    
+    checkoutModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function updateCheckoutSummary() {
+    const summaryList = document.getElementById('checkout-summary-items');
+    const subtotalEl = document.getElementById('checkout-subtotal');
+    const totalEl = document.getElementById('checkout-total');
+    
+    if (!summaryList) return;
+    
+    summaryList.innerHTML = '';
+    let subtotal = 0;
+    
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = 'summary-item';
+        itemEl.innerHTML = `
+            <div class="summary-item-left">
+                <div class="summary-item-image">
+                    <img src="${item.image}" alt="${item.title}">
+                </div>
+                <div class="summary-item-details">
+                    <p class="summary-item-name">${item.title}</p>
+                    <div class="summary-quantity-wrapper">
+                        <div class="summary-quantity-control">
+                            <button onclick="changeQuantityCheckout(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantityCheckout(${index}, 1)">+</button>
+                        </div>
+                        <button class="btn-remove-summary" onclick="removeFromCartCheckout(${index})">Remover</button>
+                    </div>
+                </div>
+            </div>
+            <p class="summary-item-price">R$ ${itemTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+        `;
+        summaryList.appendChild(itemEl);
+    });
+    
+    subtotalEl.innerText = `R$ ${subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    totalEl.innerText = `R$ ${subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+    // If cart becomes empty during checkout, close it
+    if (cart.length === 0) {
+        closeCheckoutAndReset();
+    }
+}
+
+// Special handlers for checkout to keep UI in sync
+function changeQuantityCheckout(index, delta) {
+    changeQuantity(index, delta);
+    updateCheckoutSummary();
+}
+
+function removeFromCartCheckout(index) {
+    removeFromCart(index);
+    updateCheckoutSummary();
+}
+
+
+function nextStep(stepNumber) {
+    // Hide all panels
+    document.querySelectorAll('.checkout-step-panel').forEach(panel => panel.classList.remove('active'));
+    // Show target panel
+    document.getElementById(`step-${stepNumber}`).classList.add('active');
+    
+    // Update stepper
+    document.querySelectorAll('.step').forEach((step, idx) => {
+        const stepIdx = idx + 1;
+        if (stepIdx < stepNumber) {
+            step.classList.add('completed');
+            step.classList.remove('active');
+        } else if (stepIdx === stepNumber) {
+            step.classList.add('active');
+            step.classList.remove('completed');
+        } else {
+            step.classList.remove('active', 'completed');
+        }
+    });
+}
+
+function prevStep(stepNumber) {
+    nextStep(stepNumber);
+}
+
+// Payment method toggle
+document.addEventListener('click', (e) => {
+    const tab = e.target.closest('.payment-tab');
+    if (tab) {
+        const value = tab.querySelector('input').value;
+        
+        // Update active classes
+        document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Show relevant panel
+        document.querySelectorAll('.payment-method-panel').forEach(panel => panel.classList.remove('active'));
+        document.getElementById(`payment-${value}`).classList.add('active');
+    }
+});
+
+// Card Masking
+const cardNumberInput = document.getElementById('card-number');
+if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        let formatted = value.match(/.{1,4}/g)?.join(' ') || '';
+        e.target.value = formatted;
+    });
+}
+
+function copyPixCode() {
+    const pixInput = document.getElementById('pix-code-input');
+    const toast = document.getElementById('pix-toast');
+    
+    if (pixInput) {
+        pixInput.select();
+        document.execCommand('copy');
+        
+        if (toast) {
+            toast.style.display = 'block';
+            gsap.fromTo(toast, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3 });
+            setTimeout(() => {
+                gsap.to(toast, { opacity: 0, x: 10, duration: 0.3, onComplete: () => toast.style.display = 'none' });
+            }, 3000);
+        }
+    }
+}
+
+function copyBoletoCode() {
+    const code = document.getElementById('boleto-digital-code').innerText;
+    const toast = document.getElementById('boleto-toast');
+    
+    navigator.clipboard.writeText(code).then(() => {
+        if (toast) {
+            toast.style.display = 'block';
+            gsap.fromTo(toast, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3 });
+            setTimeout(() => {
+                gsap.to(toast, { opacity: 0, x: 10, duration: 0.3, onComplete: () => toast.style.display = 'none' });
+            }, 3000);
+        }
+    });
+}
+
+function downloadBoletoPDF() {
+    // Simulate PDF generation
+    const link = document.createElement('a');
+    link.href = 'data:application/pdf;base64,JVBERi0xLjcKOCAwIG9iagogIDw8IC9UeXBlIC9QYWdlcyAvS2lkcyBbIDEgMCBSIF0gL0NvdW50IDEgPj4KZW5kb2JqCjEgMCBvYmoKICA8PCAvVHlwZSAvUGFnZSAvUGFyZW50IDggMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUgODQyIF0gL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgMiAwIFIgPj4gPj4gL0NvbnRlbnRzIDMgMCBSID4+CmVuZG9iagoyIDAgb2JqCiAgPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iagozIDAgb2JqCiAgPDwgL0xlbmd0aCA0NCA+PgogIHN0cmVhbQogIEJUIC9GMSA0OCBUZiAxMDAgNzAwIFREIChCTE9FVE8gQ0xBUidTKSBUaiBFVAogIGVuZHN0cmVhbQplbmRvYmoKNCAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgOCAwIFIgPj4KZW5kb2JqCnRyYWlsZXIKPDwgL1NpemUgNSAvUm9vdCA0IDAgUiA+Pgp%%RU9G';
+    link.download = 'Boleto_CLARS_Pedido.pdf';
+    link.click();
+}
+
+function openBoletoTab() {
+    // Simulate opening in new tab
+    const newWindow = window.open('', '_blank');
+    newWindow.document.write('<html><head><title>Boleto CLAR\'S</title><style>body{font-family:sans-serif;padding:50px;text-align:center;} .boleto{border:1px solid #000;padding:20px;display:inline-block;}</style></head><body><div class="boleto"><h1>CLAR\'S - BOLETO BANCARIO</h1><p>Valor: ' + document.getElementById('boleto-final-value').innerText + '</p><p>Vencimento: ' + document.getElementById('boleto-expiry-date').innerText + '</p></div><p>Simulação de boleto real.</p></body></html>');
+}
+
+function updateBoletoData() {
+    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const buyerInput = document.querySelector('#delivery-form input[placeholder="Nome completo"]');
+    const orderNum = 'CL' + Math.floor(100000 + Math.random() * 900000);
+    
+    const finalValue = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const buyerName = buyerInput && buyerInput.value ? buyerInput.value : 'Cliente CLAR’S';
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 3);
+    const expiryStr = expiry.toLocaleDateString('pt-BR');
+
+    // Update simulation view (Step 3)
+    const simValue = document.getElementById('boleto-sim-value');
+    const simBuyer = document.getElementById('boleto-sim-buyer');
+    const simExpiry = document.getElementById('boleto-sim-expiry');
+    
+    if (simValue) simValue.innerText = finalValue;
+    if (simBuyer) simBuyer.innerText = buyerName;
+    if (simExpiry) simExpiry.innerText = expiryStr;
+    
+    // Set Order Ref for all
+    const orderRefEls = document.querySelectorAll('#boleto-order-ref, #order-number');
+    orderRefEls.forEach(el => el.innerText = '#' + orderNum);
+
+    // Update success screen total too
+    const successTotal = document.getElementById('success-final-total');
+    if (successTotal) successTotal.innerText = finalValue;
+}
+
+function finishOrder() {
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    
+    if (paymentMethod === 'boleto') {
+        updateBoletoData();
+        // Specific logic: the success screen might want to show the boleto card instead
+        // But for now, we follow the user request to "abrir a tela de confirmação"
+        // I will ensure the summary on confirmation is also updated.
+    }
+    
+    // Generate order number if not already done by boleto
+    if (paymentMethod !== 'boleto') {
+        const orderNum = 'CL' + Math.floor(100000 + Math.random() * 900000);
+        const orderNumberEls = document.querySelectorAll('#order-number');
+        orderNumberEls.forEach(el => el.innerText = '#' + orderNum);
+        
+        const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        const successTotal = document.getElementById('success-final-total');
+        if (successTotal) successTotal.innerText = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    // Populate success summary
+    const successList = document.getElementById('success-items-list');
+    if (successList) {
+        successList.innerHTML = '';
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            const miniItem = document.createElement('div');
+            miniItem.className = 'success-mini-item';
+            miniItem.innerHTML = `
+                <span>${item.quantity}x ${item.title}</span>
+                <span>R$ ${itemTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+            `;
+            successList.appendChild(miniItem);
+        });
+    }
+    
+    // Go to confirmation step
+    nextStep(4);
+    
+    // Scroll to top of modal content
+    const content = document.querySelector('.checkout-content');
+    if (content) content.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// --- Track Order Logic ---
+const trackModal = document.getElementById('track-modal');
+const trackOrderLink = document.getElementById('track-order-link');
+const trackOrderLinkMobile = document.getElementById('track-order-link-mobile');
+const closeTrackBtn = document.getElementById('close-track');
+const btnTrackSubmit = document.getElementById('btn-track-submit');
+const btnTrackOrderSuccess = document.querySelector('.btn-track-order');
+const trackResults = document.getElementById('track-results');
+const trackDetails = document.getElementById('track-details');
+const trackLoading = document.querySelector('.track-loading');
+const trackOrderInput = document.getElementById('track-order-number');
+
+function openTrackModal(orderNum = '') {
+    trackModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (orderNum) {
+        trackOrderInput.value = orderNum;
+        simulateTracking(orderNum);
+    } else {
+        trackOrderInput.value = '';
+        trackDetails.style.display = 'none';
+        trackLoading.style.display = 'none';
+    }
+}
+
+function closeTrackModal() {
+    trackModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+function simulateTracking(orderNum) {
+    trackDetails.style.display = 'none';
+    trackLoading.style.display = 'block';
+    
+    // Simulate API delay
+    setTimeout(() => {
+        trackLoading.style.display = 'none';
+        trackDetails.style.display = 'block';
+        
+        const resNum = document.getElementById('track-res-number');
+        if (resNum) resNum.innerText = orderNum.startsWith('#') ? orderNum : '#' + orderNum;
+        
+        // Animate timeline
+        gsap.from('.timeline-step', {
+            x: -20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out"
+        });
+    }, 1500);
+}
+
+if (trackOrderLink) trackOrderLink.addEventListener('click', () => openTrackModal());
+if (trackOrderLinkMobile) trackOrderLinkMobile.addEventListener('click', () => {
+    closeSidebar();
+    openTrackModal();
+});
+if (closeTrackBtn) closeTrackBtn.addEventListener('click', closeTrackModal);
+if (btnTrackSubmit) btnTrackSubmit.addEventListener('click', () => {
+    const val = trackOrderInput.value.trim();
+    if (val) simulateTracking(val);
+});
+
+// Link from Success Screen
+if (btnTrackOrderSuccess) {
+    btnTrackOrderSuccess.addEventListener('click', () => {
+        const orderNum = document.getElementById('order-number').innerText;
+        closeCheckoutAndReset();
+        openTrackModal(orderNum);
+    });
+}
+
+// --- Chatbot Logic ---
+const chatWindow = document.getElementById('chat-window');
+const chatBody = document.getElementById('chat-body');
+const chatInput = document.getElementById('chat-input');
+const btnSendChat = document.getElementById('btn-send-chat');
+const closeChatBtn = document.getElementById('close-chat');
+
+function openChat() {
+    chatWindow.classList.add('active');
+    // Scroll to bottom
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function closeChat() {
+    chatWindow.classList.remove('active');
+}
+
+function addMessage(text, sender = 'bot') {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-message ${sender}`;
+    msgDiv.innerHTML = `
+        <p>${text}</p>
+        <span class="chat-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+    `;
+    chatBody.appendChild(msgDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    
+    // Animate new message
+    gsap.from(msgDiv, { opacity: 0, y: 10, duration: 0.3 });
+}
+
+function handleSendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    addMessage(text, 'user');
+    chatInput.value = '';
+
+    // Simulate bot response
+    setTimeout(() => {
+        let response = "Entendi perfeitamente. Um de nossos especialistas em joias irá analisar sua mensagem e retornaremos em breve para garantir que seu atendimento seja excepcional.";
+        
+        if (text.toLowerCase().includes('pedido')) {
+            response = "Para verificar o status detalhado do seu pedido, você também pode usar a nossa ferramenta de rastreamento no menu principal. Mas não se preocupe, estou verificando as últimas atualizações para você!";
+        } else if (text.toLowerCase().includes('atendente') || text.toLowerCase().includes('falar')) {
+            response = "Com certeza. Estou conectando você agora mesmo com um de nossos consultores de luxo. Aguarde um breve momento.";
+        }
+        
+        addMessage(response, 'bot');
+    }, 1000);
+}
+
+function sendQuickMessage(text) {
+    addMessage(text, 'user');
+    setTimeout(() => {
+        let response = "Ótima escolha. Vou processar essa informação agora mesmo.";
+        if (text === 'Onde está meu pedido?') response = "Seu pedido está atualmente em fase de preparação cuidadosa em nosso ateliê. Você receberá um e-mail assim que ele for enviado!";
+        addMessage(response, 'bot');
+    }, 1000);
+}
+
+if (closeChatBtn) closeChatBtn.addEventListener('click', closeChat);
+if (btnSendChat) btnSendChat.addEventListener('click', handleSendMessage);
+if (chatInput) {
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSendMessage();
+    });
+}
+
+function closeCheckoutAndReset() {
+    checkoutModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    
+    // Clear cart
+    cart = [];
+    updateCartUI();
+    
+    // Return to home
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Delivery form handler
+const deliveryForm = document.getElementById('delivery-form');
+if (deliveryForm) {
+    deliveryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        nextStep(3);
+    });
+}
+
+// Safe listeners for checkout
+if (closeCheckoutBtn) closeCheckoutBtn.addEventListener('click', () => {
+    checkoutModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+});
+
+const checkoutBtnMain = document.querySelector('.btn-checkout');
+if (checkoutBtnMain) checkoutBtnMain.addEventListener('click', openCheckout);
 
 function changeQuantity(index, delta) {
     cart[index].quantity += delta;
@@ -400,26 +892,88 @@ document.querySelectorAll('.sidebar-link').forEach(link => {
     });
 });
 
-// --- Contact Form ---
-const contactForm = document.getElementById('contact-form');
-const contactSuccess = document.getElementById('contact-success');
+// --- Premium Contact Form Logic ---
+const contactFormPremium = document.getElementById('contact-form-premium');
+const contactFeedback = document.getElementById('contact-feedback-premium');
+const btnContactSubmit = document.getElementById('btn-contact-submit');
 
-if (contactForm && contactSuccess) {
-    contactForm.addEventListener('submit', (e) => {
+if (contactFormPremium) {
+    contactFormPremium.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        gsap.to(contactForm, { 
-            opacity: 0, 
-            y: -20, 
-            duration: 0.5, 
-            onComplete: () => {
-                contactForm.style.display = 'none';
-                contactSuccess.style.display = 'block';
-                gsap.from(contactSuccess, { opacity: 0, scale: 0.9, duration: 0.5 });
-            }
-        });
+        // Basic Validation
+        const name = document.getElementById('contact-name-premium').value.trim();
+        const email = document.getElementById('contact-email-premium').value.trim();
+        const message = document.getElementById('contact-message-premium').value.trim();
+        
+        if (!name || !email || !message) {
+            showContactFeedback("Por favor, preencha todos os campos obrigatórios.", "error");
+            return;
+        }
+        
+        if (!validateEmail(email)) {
+            showContactFeedback("Por favor, insira um e-mail válido.", "error");
+            return;
+        }
+
+        // Loading State
+        const btnText = btnContactSubmit.querySelector('.btn-text');
+        const btnLoader = btnContactSubmit.querySelector('.btn-loader');
+        
+        btnText.style.opacity = '0';
+        btnLoader.style.display = 'block';
+        btnContactSubmit.style.pointerEvents = 'none';
+
+        // Simulate Email Sending
+        setTimeout(() => {
+            btnLoader.style.display = 'none';
+            btnText.style.opacity = '1';
+            btnContactSubmit.style.pointerEvents = 'auto';
+            
+            showContactFeedback("Mensagem enviada com sucesso! Nosso concierge entrará em contato em breve.", "success");
+            contactFormPremium.reset();
+        }, 2000);
     });
 }
+
+function showContactFeedback(msg, type) {
+    contactFeedback.innerText = msg;
+    contactFeedback.className = `contact-feedback-premium active ${type}`;
+    
+    setTimeout(() => {
+        contactFeedback.classList.remove('active');
+    }, 5000);
+}
+
+function validateEmail(email) {
+    return String(email)
+        .toLowerCase()
+        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+}
+
+// Scroll Reveals for Contact
+gsap.from('.contact-header-premium > *', {
+    scrollTrigger: {
+        trigger: '.contact-premium-section',
+        start: 'top 85%'
+    },
+    opacity: 0,
+    y: 30,
+    duration: 1,
+    stagger: 0.3,
+    ease: 'power3.out'
+});
+
+gsap.from('.contact-form-container-premium', {
+    scrollTrigger: {
+        trigger: '.contact-premium-section',
+        start: 'top 75%'
+    },
+    opacity: 0,
+    y: 50,
+    duration: 1.2,
+    ease: 'power4.out'
+});
 // --- About Section Animations ---
 function initAboutAnimations() {
     gsap.from('.about-visual-panel', {
@@ -514,6 +1068,99 @@ function initGlobalReveals() {
         }
     });
 }
+// --- Search Functionality ---
+function initSearch() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchWrapper = document.getElementById('search-wrapper');
+    const navSearchInput = document.getElementById('nav-search-input');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+
+    if (!searchBtn || !searchWrapper) return;
+
+    // Toggle search expand
+    searchBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!searchWrapper.classList.contains('active')) {
+            searchWrapper.classList.add('active');
+            navSearchInput.focus();
+        } else {
+            // If already open and has value, maybe search? 
+            // But requirement says automatic, so just closing or keeping open.
+            // Let's toggle for better UX.
+            if (!navSearchInput.value) {
+                searchWrapper.classList.remove('active');
+            }
+        }
+    });
+
+    // Prevent closing when clicking inside search
+    searchWrapper.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchWrapper.classList.remove('active');
+            navSearchInput.blur();
+        }
+    });
+
+    // Close on click outside
+    document.addEventListener('click', () => {
+        searchWrapper.classList.remove('active');
+    });
+
+    // Real-time filtering logic
+    const handleSearch = (query) => {
+        const lowerQuery = query.toLowerCase().trim();
+        
+        // If query is present, we filter products
+        const filtered = products.filter(p => 
+            p.title.toLowerCase().includes(lowerQuery) || 
+            p.category.toLowerCase().includes(lowerQuery) ||
+            p.description.toLowerCase().includes(lowerQuery)
+        );
+
+        // Update grid with animation
+        gsap.to(productsGrid, {
+            opacity: 0,
+            y: 10,
+            duration: 0.2,
+            onComplete: () => {
+                renderProducts(filtered);
+                gsap.to(productsGrid, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+
+                // Scroll to products if not in view and searching
+                if (query.length > 1) {
+                    const productsSection = document.getElementById('products');
+                    const rect = productsSection.getBoundingClientRect();
+                    if (rect.top > window.innerHeight || rect.bottom < 0) {
+                        productsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        });
+    };
+
+    // Nav input listener
+    navSearchInput.addEventListener('input', (e) => {
+        handleSearch(e.target.value);
+    });
+
+    // Mobile input listener
+    if (mobileSearchInput) {
+        mobileSearchInput.addEventListener('input', (e) => {
+            handleSearch(e.target.value);
+        });
+    }
+}
 
 initGlobalReveals();
 initAboutAnimations();
+

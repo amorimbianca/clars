@@ -30,18 +30,24 @@
             <div class="logo">
                 <a href="#home">CLAR’S</a>
             </div>
+
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#products">Produtos</a></li>
                 <li><a href="#about">Sobre nós</a></li>
                 <li><a href="#contact">Contato</a></li>
-                <li><button id="open-auth-btn" class="nav-login-btn">Login</button></li>
+                <li><a href="javascript:void(0)" id="track-order-link">Pedido</a></li>
             </ul>
-            <div class="nav-icons">
-                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-                <button id="cart-btn">
+            
+            <div class="nav-actions">
+                <button id="open-auth-btn" class="nav-login-btn">Login</button>
+                <div class="search-wrapper" id="search-wrapper">
+                    <input type="text" id="nav-search-input" class="search-input-expand" placeholder="Buscar joias...">
+                    <button id="search-btn" class="nav-icon-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <button id="theme-toggle" class="nav-icon-btn"><i class="fas fa-moon"></i></button>
+                <button id="cart-btn" class="nav-icon-btn">
                     <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count">0</span>
                 </button>
                 <button id="mobile-menu-btn" class="hamburger-btn">
                     <span></span>
@@ -52,67 +58,147 @@
     </nav>
 
     <!-- Mobile Menu Sidebar -->
-    <div id="mobile-sidebar" class="sidebar">
+    <div id="mobile-sidebar" class="mobile-sidebar">
         <div class="sidebar-header">
             <button id="close-sidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="mobile-search-container">
+            <input type="text" id="mobile-search-input" placeholder="O que você procura?">
+            <i class="fas fa-search"></i>
         </div>
         <ul class="mobile-links">
             <li><a href="#home" class="sidebar-link">Home</a></li>
             <li><a href="#products" class="sidebar-link">Produtos</a></li>
             <li><a href="#about" class="sidebar-link">Sobre nós</a></li>
             <li><a href="#contact" class="sidebar-link">Contato</a></li>
+            <li><a href="javascript:void(0)" id="track-order-link-mobile" class="sidebar-link">Pedido</a></li>
             <li><button id="open-auth-btn-mobile" class="nav-login-btn" style="margin-top: 20px; width: 100%;">Login</button></li>
         </ul>
     </div>
 
-    <!-- Reference Layout Hero Section -->
-    <section id="home" class="hero-scroll-zoom">
-        <div class="hero-sticky-container">
-            <div class="hero-container">
-                <div class="hero-reference-layout">
-                    <!-- Left Content -->
-                    <div class="hero-content-left">
-                        <h1 class="hero-title-main">Joias que <br><span class="highlight">emocionam!</span></h1>
-                        <p class="hero-description">Temos uma coleção exclusiva de joias em nossa loja. Nossas peças são sempre de qualidade superior.</p>
-                        <button class="btn-explore-rounded">Explorar Produtos</button>
-                        
-                        <!-- Featured Mini Cards -->
-                        <div class="hero-featured-cards">
-                            <div class="featured-card">
-                                <img src="product2.png" alt="Brincos Esmeralda">
-                                <div class="card-info">
-                                    <h4>Brincos Esmeralda</h4>
-                                    <p class="price">R$ 3.200,00</p>
-                                    <p class="discount">-10%</p>
-                                </div>
-                            </div>
-                            <div class="featured-card">
-                                <img src="product1.png" alt="Anel Safira">
-                                <div class="card-info">
-                                    <h4>Anel Safira</h4>
-                                    <p class="price">R$ 4.100,00</p>
-                                    <p class="discount">-15%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Center/Right Visual -->
-                    <div class="hero-visual-center">
-                        <div class="visual-wrapper">
-                            <div class="splash-bg"></div>
-                            <img src="hero_jewelry.png" alt="Coleção Exclusiva CLAR'S" class="zoom-image">
-                            <div class="next-btn-circle"><i class="fas fa-chevron-right"></i></div>
-                        </div>
-                    </div>
+    <!-- Hero Section: Modern Minimalist Carousel -->
+    <section id="home" class="hero-carousel-section">
+        <div class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <div class="slide-image-wrapper">
+                    <img src="hero copia.png" alt="Elegância CLAR'S">
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Elegância em<br>cada detalhe</h1>
+                    <p class="slide-subtitle">Descubra a perfeição em nossa nova coleção de anéis exclusivos.</p>
+                    <a href="#products" class="btn-primary">Ver Coleção</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <div class="slide-image-wrapper">
+                    <img src="vitrine.png" alt="Brilho CLAR'S">
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Brilho que<br>transcende o tempo</h1>
+                    <p class="slide-subtitle">Colares de diamantes e esmeraldas para momentos inesquecíveis.</p>
+                    <a href="#products" class="btn-primary">Explorar</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <div class="slide-image-wrapper">
+                    <img src="vitrine-horizontal.png" alt="Arte CLAR'S">
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-title">A arte da<br>joalheria autoral</h1>
+                    <p class="slide-subtitle">Design contemporâneo unido à tradição da alta joalheria.</p>
+                    <a href="#products" class="btn-primary">Conhecer</a>
                 </div>
             </div>
         </div>
+
+        <!-- Carousel Navigation -->
+        <div class="carousel-nav">
+            <button class="carousel-dot active" data-slide="0"></button>
+            <button class="carousel-dot" data-slide="1"></button>
+            <button class="carousel-dot" data-slide="2"></button>
+        </div>
+
+        <!-- Carousel Arrows -->
+        <button class="carousel-arrow prev" id="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-arrow next" id="carousel-next"><i class="fas fa-chevron-right"></i></button>
+
         <div class="scroll-indicator">
             <div class="mouse">
                 <div class="wheel"></div>
             </div>
             <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- Announcement Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-content">
+            <span>JOIAS EXCLUSIVAS</span>
+            <i class="fas fa-gem"></i>
+            <span>OURO 18K</span>
+            <i class="fas fa-gem"></i>
+            <span>DIAMANTES NATURAIS</span>
+            <i class="fas fa-gem"></i>
+            <span>DESIGN AUTORAL</span>
+            <i class="fas fa-gem"></i>
+            <span>COLEÇÃO PRECIOSA</span>
+            <i class="fas fa-gem"></i>
+            <span>BRILHO ETERNO</span>
+            <i class="fas fa-gem"></i>
+            <!-- Duplicate for seamless loop -->
+            <span>JOIAS EXCLUSIVAS</span>
+            <i class="fas fa-gem"></i>
+            <span>OURO 18K</span>
+            <i class="fas fa-gem"></i>
+            <span>DIAMANTES NATURAIS</span>
+            <i class="fas fa-gem"></i>
+            <span>DESIGN AUTORAL</span>
+            <i class="fas fa-gem"></i>
+            <span>COLEÇÃO PRECIOSA</span>
+            <i class="fas fa-gem"></i>
+            <span>BRILHO ETERNO</span>
+            <i class="fas fa-gem"></i>
+        </div>
+    </div>
+
+    <!-- Features Section: Brand Value Pillars -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Entrega Segura</h3>
+                    <p>Envio discreto e segurado para garantir que sua joia chegue com total proteção.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-pen-nib"></i>
+                    </div>
+                    <h3>Design Autoral</h3>
+                    <p>Peças exclusivas desenhadas por nossos mestres joalheiros com alma e história.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certificado de Pureza</h3>
+                    <p>Garantia vitalícia da autenticidade do ouro 18k e de cada gema preciosa.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Experiência CLAR'S</h3>
+                    <p>Embalagem de luxo icônica que torna o ato de presentear um momento eterno.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -181,77 +267,59 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
+    <section id="contact" class="contact-premium-section">
         <div class="container">
-            <h2 class="section-title">Fale Conosco</h2>
-            <div class="contact-grid">
-                <!-- Contact Info -->
-                <div class="contact-info-panel">
-                    <div class="contact-item-box">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Nossa Maison</h4>
-                            <p>Av. das Esmeraldas, 1000 - Jardins, São Paulo</p>
-                        </div>
-                    </div>
-                    <div class="contact-item-box">
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <h4>Concierge</h4>
-                            <p>+55 (11) 98888-7777</p>
-                        </div>
-                    </div>
-                    <div class="contact-item-box">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Atendimento</h4>
-                            <p>contato@clars.com.br</p>
-                        </div>
-                    </div>
-                    <div class="contact-social-row">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                    <!-- Stylized Map Placeholder -->
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975!2d-46.6611!3d-23.5614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDMzJzQxLjAiUyA0NsKwMzknMzkuOSJX!5e0!3m2!1spt-BR!2sbr!4v1234567890" width="100%" height="250" style="border:0; filter: grayscale(1) invert(1) contrast(0.8) sepia(0.2) hue-rotate(300deg); border-radius: 20px;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="contact-container-inspired">
+                <!-- Left Side: Text & Social -->
+                <div class="contact-text-inspired">
+                    <span class="contact-tag-inspired">Fale Comigo</span>
+                    <h2 class="contact-title-inspired">Vamos conversar?</h2>
+                    <p class="contact-desc-inspired">
+                        Se você sente que chegou o momento de cuidar de si ou presentear alguém especial, estou aqui para te ouvir com acolhimento, respeito e atenção.
+                    </p>
+                    
+                    <div class="contact-social-buttons">
+                        <a href="https://wa.me/5511988887777" target="_blank" class="btn-social-inspired whatsapp">
+                            <i class="fab fa-whatsapp"></i> Agendar pelo WhatsApp
+                        </a>
+                        <a href="mailto:contato@clars.com.br" class="btn-social-inspired email">
+                            <i class="fas fa-envelope"></i> Enviar E-mail
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="btn-social-inspired instagram">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
                     </div>
                 </div>
 
-                <!-- Contact Form -->
-                <div class="contact-form-panel">
-                    <form id="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Nome</label>
-                                <input type="text" id="contact-name" class="form-input-premium" placeholder="Como deseja ser chamada?" required>
-                            </div>
-                            <div class="form-group">
-                                <label>E-mail</label>
-                                <input type="email" id="contact-email" class="form-input-premium" placeholder="seu@email.com" required>
-                            </div>
+                <!-- Right Side: Form Card -->
+                <div class="contact-form-card-inspired">
+                    <form id="contact-form-premium" class="inspired-form">
+                        <div class="form-group-premium">
+                            <label>Seu nome completo</label>
+                            <input type="text" id="contact-name-premium" placeholder="Como deseja ser chamada?" required>
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="form-group-premium">
+                            <label>E-mail</label>
+                            <input type="email" id="contact-email-premium" placeholder="seu@email.com" required>
+                        </div>
+
+                        <div class="form-group-premium">
                             <label>Assunto</label>
-                            <select id="contact-subject" class="form-input-premium">
-                                <option>Dúvidas sobre produtos</option>
-                                <option>Agendamento de visita</option>
-                                <option>Joias personalizadas</option>
-                                <option>Outros</option>
-                            </select>
+                            <input type="text" id="contact-subject-premium" placeholder="Dúvidas, agendamentos, etc.">
                         </div>
-                        <div class="form-group">
-                            <label>Sua Mensagem</label>
-                            <textarea id="contact-message" class="form-input-premium" rows="5" placeholder="Conte-nos como podemos ajudar..." required></textarea>
+
+                        <div class="form-group-premium">
+                            <label>Como posso te ajudar?</label>
+            <textarea id="contact-message-premium" rows="5" placeholder="Conte-me um pouco sobre o que você busca..." required></textarea>
                         </div>
-                        <button type="submit" class="btn-send-premium">Enviar Mensagem</button>
+
+                        <button type="submit" id="btn-contact-submit" class="btn-submit-inspired">
+                            Enviar mensagem <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                        <div id="contact-feedback-premium" class="contact-feedback-premium"></div>
                     </form>
-                    <div id="contact-success" class="success-message-box" style="display: none;">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Mensagem enviada com sucesso</h3>
-                        <p>Nosso concierge entrará em contato em breve para um atendimento personalizado.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -289,10 +357,12 @@
                 <!-- Exclusive Club / Newsletter -->
                 <div class="footer-col newsletter-col">
                     <h3 class="footer-title">Clube Exclusivo</h3>
-                    <p>Receba convites para eventos e lançamentos em primeira mão.</p>
+                    <p class="footer-brand-desc">Receba convites para eventos e lançamentos em primeira mão.</p>
                     <div class="footer-newsletter">
-                        <input type="email" placeholder="seu@email.com" class="newsletter-input">
-                        <button class="newsletter-btn"><i class="fas fa-arrow-right"></i></button>
+                        <div class="newsletter-form-wrapper">
+                            <input type="email" placeholder="seu@email.com" class="newsletter-input">
+                            <button class="newsletter-btn"><i class="fas fa-arrow-right"></i></button>
+                        </div>
                     </div>
                 </div>
 
@@ -300,11 +370,11 @@
                 <div class="footer-col">
                     <h3 class="footer-title">Siga a CLAR’S</h3>
                     <div class="social-links-footer">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
-                    <p class="footer-contact-info">contato@clars.com.br</p>
+                    <p class="footer-contact-info" style="margin-top: 20px; opacity: 0.6;">contato@clars.com.br</p>
                 </div>
             </div>
             
@@ -332,71 +402,63 @@
         </div>
     </div>
 
-    <!-- Auth Modal -->
+    <!-- Auth Modal (Sliding Dual Panel) -->
     <div id="auth-modal" class="auth-modal">
         <div class="auth-overlay"></div>
-        <div class="auth-card">
-            <!-- Left Section -->
-            <div class="auth-form-side">
-                <button class="auth-close" id="close-auth-btn"><i class="fas fa-times"></i></button>
-                <div class="auth-tabs-container">
-                    <button class="auth-tab-btn active" data-auth-tab="login">Login</button>
-                    <button class="auth-tab-btn" data-auth-tab="register">Cadastro</button>
-                </div>
-                <div class="auth-logo-circle"></div>
-                <div class="auth-title-row">
-                    <h2 id="auth-modal-title">Bem-vindo à CLAR’S</h2>
-                </div>
-                <form id="auth-form">
-                    <div id="register-only-fields" style="display: none;">
-                        <div class="form-group">
-                            <label for="reg-name">Nome Completo:</label>
-                            <input type="text" id="reg-name" class="form-input" placeholder="Seu nome">
-                        </div>
+        <div class="auth-card-container" id="auth-card-container">
+            <!-- Sign Up Form (Register) -->
+            <div class="form-container sign-up-container">
+                <form id="signup-form">
+                    <h1>Criar Conta</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social"><i class="fab fa-apple"></i></a>
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     </div>
-                    <div id="email-field" class="form-group">
-                        <label for="email">Endereço de E-mail:</label>
-                        <input type="email" id="email" class="form-input" placeholder="seu@email.com" required>
-                    </div>
-                    <div id="password-fields">
-                        <div class="form-group">
-                            <label for="password">Senha:</label>
-                            <input type="password" id="password" class="form-input" placeholder="••••••••••••">
-                        </div>
-                        <div id="confirm-pass-field" style="display: none;">
-                            <div class="form-group">
-                                <label for="confirm-password">Confirmar Senha:</label>
-                                <input type="password" id="confirm-password" class="form-input" placeholder="••••••••••••">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="login-options" class="auth-options">
-                        <label class="remember-me">
-                            <input type="checkbox"> Lembrar de mim
-                        </label>
-                        <a href="#" id="btn-forgot-pass" class="forgot-pass">Esqueceu a senha?</a>
-                    </div>
-                    <button type="submit" id="auth-submit-btn" class="btn-auth-submit">Entrar</button>
-                    <div id="social-auth-section">
-                        <div class="social-divider">ou conecte-se com</div>
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://accounts.google.com" target="_blank" class="social-btn"><i class="fab fa-google"></i></a>
-                        </div>
-                    </div>
-                    <div id="back-to-login-row" style="display: none; text-align: center; margin-top: 20px;">
-                        <a href="#" id="btn-back-to-login" class="forgot-pass">Voltar para o Login</a>
-                    </div>
+                    <span>Ou insira o seu e-mail para Cadastrar.</span>
+                    <input type="text" id="reg-name" placeholder="Nome Completo" required>
+                    <input type="email" id="reg-email" placeholder="E-mail" required>
+                    <input type="password" id="reg-pass" placeholder="Senha" required>
+                    <input type="text" id="reg-cpf" placeholder="CPF">
+                    <input type="text" id="reg-birth" placeholder="dd / mm / aaaa">
+                    <button type="submit">CADASTRAR</button>
                 </form>
             </div>
-            <!-- Right Section -->
-            <div class="auth-visual-side">
-                <div class="visual-content">
-                    <h1>CLAR’S</h1>
-                    <p id="visual-description">Onde cada detalhe conta uma história de brilho e exclusividade. Descubra a perfeição em cada peça.</p>
-                    <a href="#about" id="btn-learn-more-auth" class="btn-learn-more">Saiba Mais</a>
+
+            <!-- Sign In Form (Login) -->
+            <div class="form-container sign-in-container">
+                <form id="signin-form">
+                    <h1>Entrar</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social"><i class="fab fa-apple"></i></a>
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                    <span>Entre com o seu E-mail</span>
+                    <input type="email" id="login-email" placeholder="email@email.com" required>
+                    <input type="password" id="login-pass" placeholder="Senha" required>
+                    <a href="#" class="forgot-pass">Esqueceu sua Senha?</a>
+                    <button type="submit">ENTRAR</button>
+                </form>
+            </div>
+
+            <!-- Decorative Overlay -->
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Bem Vindo de Volta!</h1>
+                        <p>Digite os seus dados pessoais para Entrar.</p>
+                        <button class="ghost" id="signIn">ENTRE</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Olá Amigo!</h1>
+                        <p>Cadastre-se com seus dados pessoais para utilizar todos os nossos recursos.</p>
+                        <button class="ghost" id="signUp">INSCREVER</button>
+                    </div>
                 </div>
             </div>
+
+            <button class="auth-close-btn" id="close-auth-btn"><i class="fas fa-times"></i></button>
         </div>
     </div>
 
@@ -414,6 +476,412 @@
     <button id="back-to-top" class="back-to-top">
         <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="checkout-modal">
+        <div class="checkout-overlay"></div>
+        <div class="checkout-container">
+            <button id="close-checkout" class="close-checkout"><i class="fas fa-times"></i></button>
+            
+            <!-- Stepper -->
+            <div class="checkout-stepper">
+                <div class="step active" data-step="1">
+                    <span class="step-num">1</span>
+                    <span class="step-label">Resumo</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <span class="step-num">2</span>
+                    <span class="step-label">Entrega</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="3">
+                    <span class="step-num">3</span>
+                    <span class="step-label">Pagamento</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="4">
+                    <span class="step-num">4</span>
+                    <span class="step-label">Confirmação</span>
+                </div>
+            </div>
+
+            <div class="checkout-content">
+                <!-- Step 1: Summary -->
+                <div class="checkout-step-panel active" id="step-1">
+                    <h3 class="checkout-title">Resumo do Pedido</h3>
+                    <div id="checkout-summary-items" class="checkout-summary-list">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <div class="checkout-totals">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span id="checkout-subtotal">R$ 0,00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Frete</span>
+                            <span id="checkout-shipping">Grátis</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total</span>
+                            <span id="checkout-total">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-checkout-next" onclick="nextStep(2)">Continuar para Entrega</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Delivery -->
+                <div class="checkout-step-panel" id="step-2">
+                    <h3 class="checkout-title">Endereço de Entrega</h3>
+                    <form id="delivery-form" class="checkout-form">
+                        <div class="form-group">
+                            <label>Nome Completo</label>
+                            <input type="text" placeholder="Nome completo" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>CEP</label>
+                                <input type="text" placeholder="00000-000" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Cidade</label>
+                                <input type="text" placeholder="Sua cidade" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Endereço</label>
+                            <input type="text" placeholder="Rua, número e complemento" required>
+                        </div>
+                    </form>
+                    <div class="form-buttons">
+                        <button type="button" class="btn-checkout-prev" onclick="prevStep(1)">Voltar</button>
+                        <button class="btn-checkout-next" onclick="nextStep(3)">Continuar para Pagamento</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div class="checkout-step-panel" id="step-3">
+                    <h3 class="checkout-title">Forma de Pagamento</h3>
+                    <div class="payment-tabs">
+                        <label class="payment-tab active" data-target="pix">
+                            <input type="radio" name="payment" value="pix" checked>
+                            <svg width="22" height="22" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 8px;">
+                                <path d="M125.1 31.7c-5.2-5.2-13.6-5.2-18.8 0L31.7 106.3c-5.2 5.2-5.2 13.6 0 18.8l74.6 74.6c5.2 5.2 13.6 5.2 18.8 0l74.6-74.6c5.2-5.2 5.2-13.6 0-18.8L125.1 31.7zm0 256c-5.2-5.2-13.6-5.2-18.8 0l-74.6 74.6c-5.2 5.2-5.2 13.6 0 18.8l74.6 74.6c5.2 5.2 13.6 5.2 18.8 0l74.6-74.6c5.2-5.2 5.2-13.6 0-18.8l-74.6-74.6zm256-256c-5.2-5.2-13.6-5.2-18.8 0l-74.6 74.6c-5.2 5.2-5.2 13.6 0 18.8l74.6 74.6c5.2 5.2 13.6 5.2 18.8 0l74.6-74.6c5.2-5.2 5.2-13.6 0-18.8l-74.6-74.6zm0 256c-5.2-5.2-13.6-5.2-18.8 0l-74.6 74.6c-5.2 5.2-5.2 13.6 0 18.8l74.6 74.6c5.2 5.2 13.6 5.2 18.8 0l74.6-74.6c5.2-5.2 5.2-13.6 0-18.8l-74.6-74.6zM256 160.3c-5.2-5.2-13.6-5.2-18.8 0l-74.6 74.6c-5.2 5.2-5.2 13.6 0 18.8l74.6 74.6c5.2 5.2 13.6 5.2 18.8 0l74.6-74.6c5.2-5.2 5.2-13.6 0-18.8l-74.6-74.6z" fill="currentColor"/>
+                            </svg>
+                            <span>Pix</span>
+                        </label>
+                        <label class="payment-tab" data-target="card">
+                            <input type="radio" name="payment" value="card">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Cartão</span>
+                        </label>
+                        <label class="payment-tab" data-target="boleto">
+                            <input type="radio" name="payment" value="boleto">
+                            <i class="fas fa-barcode"></i>
+                            <span>Boleto</span>
+                        </label>
+                    </div>
+
+                    <div class="payment-methods-container">
+                        <!-- Pix Payment -->
+                        <div id="payment-pix" class="payment-method-panel active">
+                            <div class="pix-premium-box">
+                                <div class="qr-code-section">
+                                    <div class="qr-code-frame">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=CLARS-PIX-PAYMENT-MOCK" alt="Pix QR Code">
+                                    </div>
+                                    <div class="pix-instructions">
+                                        <p class="pix-main-text">Aponte a câmera do seu celular para o QR Code</p>
+                                        <p class="pix-sub-text">O pagamento é aprovado instantaneamente.</p>
+                                    </div>
+                                </div>
+                                <div class="pix-copy-section">
+                                    <label>Ou copie o código abaixo:</label>
+                                    <div class="pix-input-group">
+                                        <input type="text" value="00020101021226580014br.gov.bcb.pix0136clars-pagamentos-mock-pix-key-123" readonly id="pix-code-input">
+                                        <button class="btn-copy-action" onclick="copyPixCode()">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div id="pix-toast" class="pix-toast">Código PIX copiado com sucesso!</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Payment -->
+                        <div id="payment-card" class="payment-method-panel">
+                            <form id="card-form" class="checkout-form">
+                                <div class="form-group">
+                                    <label>Número do Cartão</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                                        <div class="card-icons">
+                                            <i class="fab fa-cc-visa"></i>
+                                            <i class="fab fa-cc-mastercard"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nome Completo (como no cartão)</label>
+                                    <input type="text" placeholder="JOÃO SILVA" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Validade</label>
+                                        <input type="text" placeholder="MM/AA" maxlength="5" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CVV</label>
+                                        <input type="text" placeholder="000" maxlength="4" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Parcelas</label>
+                                    <select class="premium-select">
+                                        <option value="1">1x à vista (Sem juros)</option>
+                                        <option value="2">2x sem juros</option>
+                                        <option value="3">3x sem juros</option>
+                                        <option value="4">4x com juros</option>
+                                        <option value="5">5x com juros</option>
+                                        <option value="6">6x com juros</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Boleto Payment -->
+                        <div id="payment-boleto" class="payment-method-panel">
+                            <div class="boleto-simulation-wrapper">
+                                <div class="boleto-sim-header">
+                                    <div class="bank-logo-sim">CLAR’S BANK</div>
+                                    <div class="bank-code-sim">001-9</div>
+                                    <div id="boleto-digital-code" class="bank-digit-sim">00190.00009 02741.545008 60007.913174 5 95430000125000</div>
+                                </div>
+                                <div class="boleto-sim-grid">
+                                    <div class="sim-row">
+                                        <div class="sim-col">
+                                            <label>Local de Pagamento</label>
+                                            <p>Pagável em qualquer banco até o vencimento</p>
+                                        </div>
+                                        <div class="sim-col highlight">
+                                            <label>Vencimento</label>
+                                            <p id="boleto-sim-expiry">00/00/0000</p>
+                                        </div>
+                                    </div>
+                                    <div class="sim-row">
+                                        <div class="sim-col">
+                                            <label>Beneficiário</label>
+                                            <p>CLAR’S JOIAS LTDA - CNPJ: 12.345.678/0001-90</p>
+                                        </div>
+                                        <div class="sim-col">
+                                            <label>Agência/Código Beneficiário</label>
+                                            <p>1234-5 / 67890-1</p>
+                                        </div>
+                                    </div>
+                                    <div class="sim-row">
+                                        <div class="sim-col">
+                                            <label>Pagador</label>
+                                            <p id="boleto-sim-buyer">Carregando...</p>
+                                        </div>
+                                        <div class="sim-col highlight">
+                                            <label>Valor do Documento</label>
+                                            <p id="boleto-sim-value">R$ 0,00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="boleto-sim-barcode">
+                                    <div class="barcode-lines-sim">
+                                        <!-- Realistic barcode pattern -->
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="boleto-sim-actions">
+                                    <button class="btn-boleto-action copy" onclick="copyBoletoCode()">
+                                        <i class="fas fa-copy"></i> Copiar Linha Digitável
+                                    </button>
+                                    <button class="btn-boleto-action download" onclick="downloadBoletoPDF()">
+                                        <i class="fas fa-print"></i> Imprimir Boleto
+                                    </button>
+                                </div>
+                                <div id="boleto-toast" class="pix-toast">Linha digitável copiada com sucesso!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn-checkout-prev" onclick="prevStep(2)">Voltar</button>
+                        <button class="btn-checkout-finish" onclick="finishOrder()">Finalizar Pagamento</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="checkout-step-panel" id="step-4">
+                    <div class="success-screen-premium">
+                        <div class="success-celebration">
+                            <div class="success-check-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h2 class="success-headline">Pedido Realizado!</h2>
+                            <p class="success-subheadline">Uma joia exclusiva está a caminho de você.</p>
+                        </div>
+
+                        <div class="success-details-grid">
+                            <div class="detail-card">
+                                <p class="detail-label">Número do Pedido</p>
+                                <p class="detail-value" id="order-number">#CL782190</p>
+                            </div>
+                            <div class="detail-card">
+                                <p class="detail-label">Previsão de Envio</p>
+                                <p class="detail-value">24-48 Horas</p>
+                            </div>
+                            <div class="detail-card">
+                                <p class="detail-label">Confirmação</p>
+                                <p class="detail-value">Enviado por E-mail</p>
+                            </div>
+                        </div>
+
+                        <div class="success-order-summary-box">
+                            <h3>Resumo da Compra</h3>
+                            <div id="success-items-list" class="success-items-mini">
+                                <!-- Re-inject small summary here -->
+                            </div>
+                            <div class="success-total-row">
+                                <span>Total Pago</span>
+                                <strong id="success-final-total">R$ 0,00</strong>
+                            </div>
+                        </div>
+
+                        <div class="success-actions">
+                            <button class="btn-track-order">Pedido <i class="fas fa-truck"></i></button>
+                            <button class="btn-continue-shopping" onclick="closeCheckoutAndReset()">Voltar para a Loja</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Track Order Modal -->
+    <div id="track-modal" class="track-modal">
+        <div class="track-overlay"></div>
+        <div class="track-container">
+            <button id="close-track" class="close-track"><i class="fas fa-times"></i></button>
+            <div class="track-content">
+                <div class="track-search-section">
+                    <h2 class="track-title">Pedido</h2>
+                    <p class="track-subtitle">Insira o número do seu pedido para verificar o status em tempo real.</p>
+                    <div class="track-input-group">
+                        <input type="text" id="track-order-number" placeholder="Ex: #CL123456">
+                        <button id="btn-track-submit" class="btn-track-submit">Buscar <i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+
+                <div id="track-results" class="track-results">
+                    <!-- Initial state: hidden or empty -->
+                    <div class="track-loading" style="display: none;">
+                        <div class="luxury-spinner"></div>
+                        <p>Buscando informações...</p>
+                    </div>
+
+                    <div id="track-details" class="track-details-view" style="display: none;">
+                        <div class="order-summary-mini">
+                            <div class="summary-info">
+                                <span class="label">Pedido</span>
+                                <span class="value" id="track-res-number">#CL994875</span>
+                            </div>
+                            <div class="summary-info">
+                                <span class="label">Data</span>
+                                <span class="value">07 de Maio, 2026</span>
+                            </div>
+                            <div class="summary-info">
+                                <span class="label">Previsão</span>
+                                <span class="value">10 de Maio</span>
+                            </div>
+                        </div>
+
+                        <div class="track-timeline">
+                            <div class="timeline-step completed">
+                                <div class="step-icon"><i class="fas fa-shopping-bag"></i></div>
+                                <div class="step-info">
+                                    <h3>Pedido Realizado</h3>
+                                    <p>07/05 - 14:30</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step completed">
+                                <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                                <div class="step-info">
+                                    <h3>Pagamento Confirmado</h3>
+                                    <p>07/05 - 14:32</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step active">
+                                <div class="step-icon"><i class="fas fa-box"></i></div>
+                                <div class="step-info">
+                                    <h3>Em Preparação</h3>
+                                    <p>Sua joia está sendo preparada.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="step-icon"><i class="fas fa-truck"></i></div>
+                                <div class="step-info">
+                                    <h3>Em Trânsito</h3>
+                                    <p>Aguardando coleta.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="step-icon"><i class="fas fa-home"></i></div>
+                                <div class="step-info">
+                                    <h3>Entregue</h3>
+                                    <p>Finalizado.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="track-footer">
+                            <button class="btn-help" onclick="openChat()">Precisa de Ajuda? <i class="fas fa-comment-dots"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Interface -->
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <div class="profile-avatar">C</div>
+                <div class="profile-info">
+                    <h3>Concierge CLAR’S</h3>
+                    <span>Online agora</span>
+                </div>
+            </div>
+            <button id="close-chat" class="close-chat-btn"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message bot">
+                <p>Olá! Sou o Concierge da CLAR’S. Como posso tornar sua experiência hoje ainda mais especial?</p>
+                <span class="chat-time">Justo agora</span>
+            </div>
+            <div class="chat-quick-actions">
+                <button onclick="sendQuickMessage('Onde está meu pedido?')">Onde está meu pedido?</button>
+                <button onclick="sendQuickMessage('Trocas e Devoluções')">Trocas e Devoluções</button>
+                <button onclick="sendQuickMessage('Falar com atendente')">Falar com atendente</button>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Escreva sua mensagem...">
+            <button id="btn-send-chat" class="btn-send-chat"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
